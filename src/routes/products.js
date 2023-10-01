@@ -8,6 +8,8 @@ const router = express.Router();
 const pathProducts = path.join(__dirname, '../products.json');
 const fileProducts = JSON.parse(readFileSync(pathProducts));
 const productManager = new ProductManager(fileProducts);
+
+
 router.get("/", (req, res) => {
     try {
       const limit = parseInt(req.query.limit);
@@ -18,7 +20,7 @@ router.get("/", (req, res) => {
       }
       res.render("tienda", {
         title: "tienda",
-        productsFind: fileProducts
+        productsFind: products
       });
     } catch (error) {
       res.status(500).json({ error: error.message });

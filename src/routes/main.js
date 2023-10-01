@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     }
     res.render("index", {
       title: "Inicio",
-      productsFind: fileProducts
+      productsFind: products
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
