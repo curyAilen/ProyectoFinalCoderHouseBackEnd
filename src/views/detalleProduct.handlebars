@@ -1,0 +1,19 @@
+
+    <title>{{ title }}</title>
+</head>
+<body class="container-fluid">
+    {{>header}}
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img src="/img/{{ product.thumbnail }}" alt="Imagen del producto" class="card-img-top">
+            <div class="card-body">
+                <h4 class="card-title">Title: {{ product.title }}</h4>
+                <p class="card-text">Disponibilidad: {{ product.stock }}</p>
+                <p class="card-text">Price: ${{ product.price }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

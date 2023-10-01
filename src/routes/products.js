@@ -26,9 +26,26 @@ router.get("/", (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
-router.get('/:pid', (req, res) => {
-  // Implementación de la ruta para obtener un producto por su id
-});
+
+  router.get('/:pid', (req, res) => {
+    const productId = parseInt(req.params.pid);
+    try {      
+      productManager.getProduct();
+      const product = productManager.getProductById(productId);
+  
+      if (product) {
+        res.render("detalleProduct", {
+            title: "Detalle producto",
+            product: product
+          });
+      } else {
+        res.status(404).json({ error: 'Producto no encontrado' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  });
+  
 
 router.post('/', (req, res) => {
   // Implementación de la ruta para agregar un nuevo producto
