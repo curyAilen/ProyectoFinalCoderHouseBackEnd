@@ -6,3 +6,6 @@
     max-width: 100%;
     height: auto;
 }
+.fab, .fas, i{
+    color: #9c249c;
+}

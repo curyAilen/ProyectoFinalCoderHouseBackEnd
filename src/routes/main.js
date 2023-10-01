@@ -1,10 +1,11 @@
 import express from "express";
 import { readFileSync } from 'fs';
 import path from "path";
-import ProductManager from '../views/ProductManager';
+import ProductManager from '../ProductManager.js';
+import __dirname from '../utils.js';
 
 const router = express.Router();
-const pathProducts = path.join(__dirname, '../../products.json');
+const pathProducts = path.join(__dirname, '../products.json');
 const fileProducts = JSON.parse(readFileSync(pathProducts));
 const productManager = new ProductManager(fileProducts);
 
@@ -16,7 +17,7 @@ router.get("/", (req, res) => {
     if (!isNaN(limit)) {
       products = products.slice(0, limit);
     }
-    res.render("inicio", {
+    res.render("index", {
       title: "Inicio",
       productsFind: fileProducts
     });

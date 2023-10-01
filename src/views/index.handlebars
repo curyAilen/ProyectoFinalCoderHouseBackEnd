@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <%- include ('partials/head') %>
+
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body class="container-fluid">
-    <%- include ('partials/header') %>
-    <h1>INICIO</h1>
+    {{>header}}
     <div class="row">
         {{#each productsFind}}
             <div class="col-md-4 mb-3">
@@ -22,7 +17,3 @@
             </div>
         {{/each}}
     </div>
-
-    <%- include ('partials/footer') %>
-</body>
-</html>
