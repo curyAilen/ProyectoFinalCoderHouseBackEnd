@@ -8,7 +8,7 @@
 #### Products
 - Para el manejo de productos, el cual tendrá su router en **/api/products/** , configurar las siguientes rutas
     - La ruta raíz GET / deberá listar todos los productos de la base. (Incluyendo la limitación **?limit** del desafío anterior) **✓**
-    - La ruta GET /:pid deberá traer sólo el producto con el id proporcionado
+    - La ruta GET /:pid deberá traer sólo el producto con el id proporcionado **✓**
     - La ruta raíz POST / deberá agregar un nuevo producto con los campos
         - id: Number/String (A tu elección), el id NO se manda desde body, se autogenera como lo hemos visto desde los primeros entregables, asegurando que NUNCA se repetirán los ids en el archivo.
         - title:String, 
