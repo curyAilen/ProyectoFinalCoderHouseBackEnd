@@ -16,7 +16,7 @@ class ProductManager {
             throw new Error('Ya existe un Producto con ese ID');
         }
         const newProduct = {
-            id: this.autoIncrementId++,
+            id: this.autoIncrementId++, 
             title,
             description,
             price,

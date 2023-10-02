@@ -1,0 +1,29 @@
+<title>{{ title }}</title>
+</head>
+    {{>header}}
+<body class="container-fluid">
+  <div class="container mt-5">
+    <h1 class="mb-4">Carrito de Compras</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cart.products}}
+        <tr>
+          <td>{{this.title}}</td>
+          <td>{{this.quantity}}</td>
+          <td>${{this.price}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="text-right">
+      <h4>Total: ${{cart.totalPrice}}</h4>
+    </div>
+    <button class="btn btn-primary">Realizar Pago</button>
+  </div>

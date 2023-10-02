@@ -3,6 +3,7 @@
 <body class="container-fluid">
     {{>header}}
     <div class="row">
+        <h3 class="col-12">Tienda</h3>
         {{#each productsFind}}
             <div class="col-md-4 mb-3">
                 <div class="card">
@@ -12,8 +13,9 @@
                         <p class="card-text">Disponibilidad: {{ stock }}</p>
                         <p class="card-text">Price: ${{ price }}</p>
                     </div>
-                      <a href="/api/products/edit/{{ id }}" class="btn btn-primary">Editar Producto</a>
+                    <a class="nav-link" href="/api/products/{{ id }}">detalle</a>
                 </div>
             </div>
         {{/each}}
     </div>
+    

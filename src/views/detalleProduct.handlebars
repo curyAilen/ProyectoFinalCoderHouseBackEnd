@@ -3,21 +3,46 @@
 
 <body class="container-fluid">
     {{>header}}
-    <div class="row justifi-content-center">
+    <div class="row justify-content-center">
         <div class="col-md-4 mb-3 detalleProducto">
-            <div class="card ">
+            <div class="card">
                 <img src="/img/{{ product.thumbnail }}" alt="Imagen del producto" class="card-img-top">
                 <div class="card-body">
                     <h4 class="card-title">Title: {{ product.title }}</h4>
                     <p class="card-text">Disponibilidad: {{ product.stock }}</p>
                     <p class="card-text">Price: ${{ product.price }}</p>
                 </div>
-                <form action="/api/products/delete/{{ product.id }}" method="post">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger">Eliminar Producto</button>
-                </form>
-                <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary">Editar Producto</a>
 
+               <form action="/api/cart/add" method="post" class="card-body">
+                    <input type="hidden" name="productId" value="{{ product.id }}">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-light" onclick="decrement()">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" name="quantity" value="1" min="1" id="quantityInput"
+                            class="form-control text-center">
+                        <button type="button" class="btn btn-light" onclick="increment()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Agregar al Carrito</button>
+                </form>
+            </div>
+                <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary ">Editar Producto</a>
             </div>
         </div>
     </div>
+
+    <script>
+        function increment() {
+            const input = document.getElementById('quantityInput');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrement() {
+            const input = document.getElementById('quantityInput');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+    </script>

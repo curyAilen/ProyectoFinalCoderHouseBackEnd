@@ -42,5 +42,9 @@
       </div>
       <button type="submit" class="btn btn-primary col-lg-3">Actualizar Producto</button>
     </form>
+          <form action="/api/products/delete/{{ product.id }}" method="post" class="card-footer">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                </form>
   </div>
 </body>

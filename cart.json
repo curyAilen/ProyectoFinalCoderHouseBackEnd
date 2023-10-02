@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "product": {
+      "id": 1,
+      "title": "Creación de identidad de marca",
+      "description": "La creación de identidad de marca es un proceso creativo y estratégico en el cual se diseñan los elementos visuales y conceptuales que representarán la esencia y personalidad de una marca. Incluye la definición de aspectos como el logotipo, colores, tipografías, voz de la marca y otros elementos gráficos. Este proceso puede dividirse en etapas que abarcan la investigación, conceptualización, diseño, revisiones y entrega final. Los tiempos de demora varían según la complejidad del proyecto, pero generalmente oscilan entre semanas a meses, dependiendo del alcance y requisitos específicos de la marca.",
+      "price": 45000,
+      "thumbnail": "BarajaLogo.png",
+      "code": 27388466,
+      "stock": 1
+    },
+    "quantity": 3
+  },
+  {
+    "id": 3,
+    "product": {
+      "id": 3,
+      "title": "Creación de video institucional",
+      "description": "La creación de un video institucional involucra la conceptualización, guion, filmación, edición y producción de un video que presenta la identidad, valores y mensaje de una empresa. Requiere coordinación entre profesionales de guion, dirección, producción y edición. Los tiempos de demora varían según la duración y complejidad, siendo de semanas a meses.",
+      "price": 1150000,
+      "thumbnail": "YrucLogo.jpg",
+      "code": 4672488246625,
+      "stock": 3
+    },
+    "quantity": 20
+  },
+  {
+    "id": 4,
+    "product": {
+      "id": 5,
+      "title": "Creación de un video infográfico",
+      "description": "La creación de un video infográfico involucra la combinación de elementos visuales y narrativos para comunicar información compleja de manera efectiva. Incluye la conceptualización, diseño gráfico, animaciones, selección de voz en off y música, y edición de video. Los tiempos de demora varían según la duración y complejidad, desde semanas hasta meses, dependiendo del proyecto.",
+      "price": 35000,
+      "thumbnail": "YrucLogo.jpg",
+      "code": 46364783426,
+      "stock": 5
+    },
+    "quantity": 15
+  }
+]
