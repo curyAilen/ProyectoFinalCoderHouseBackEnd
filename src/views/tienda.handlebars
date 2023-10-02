@@ -13,6 +13,7 @@
                         <p class="card-text">Disponibilidad: {{ stock }}</p>
                         <p class="card-text">Price: ${{ price }}</p>
                     </div>
+                      <a href="/api/products/edit/{{ id }}" class="btn btn-primary">Editar Producto</a>
                 </div>
             </div>
         {{/each}}

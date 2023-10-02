@@ -1,19 +1,23 @@
-
-    <title>{{ title }}</title>
+<title>{{ title }}</title>
 </head>
+
 <body class="container-fluid">
     {{>header}}
-<div class="row">
-    <div class="col-md-4 mb-3">
-        <div class="card">
-            <img src="/img/{{ product.thumbnail }}" alt="Imagen del producto" class="card-img-top">
-            <div class="card-body">
-                <h4 class="card-title">Title: {{ product.title }}</h4>
-                <p class="card-text">Disponibilidad: {{ product.stock }}</p>
-                <p class="card-text">Price: ${{ product.price }}</p>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="/img/{{ product.thumbnail }}" alt="Imagen del producto" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Title: {{ product.title }}</h4>
+                    <p class="card-text">Disponibilidad: {{ product.stock }}</p>
+                    <p class="card-text">Price: ${{ product.price }}</p>
+                </div>
+                <form action="/api/products/delete/{{ product.id }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                </form>
+                <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary">Editar Producto</a>
+
             </div>
         </div>
     </div>
-</div>
-
-
