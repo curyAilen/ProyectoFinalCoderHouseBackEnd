@@ -32,5 +32,17 @@ router.get('/:cid ', (req, res)=>{
     res.render('cart', { title: 'Carrito', cart });
 })
 
+router.delete('/:pid', (req, res) =>{
+    const productId = parseInt(req.params.pid);  
+    try {
+      productManager.deleteProduct(productId);
+      const updatedProducts = productManager.getProduct();
+      writeFileSync(pathProducts, JSON.stringify(updatedProducts, null, 2));
+      res.status(200).send('Producto eliminado correctamente.');
+    } catch (error) {
+      res.status(404).send('Producto no encontrado.');
+    }
+  });
+
 export default router;
 

@@ -8,15 +8,12 @@ class CartManager {
     }
 
     addToCart(productId, quantity) {
-       
-        const productsData = JSON.parse(fs.readFileSync('products.json', 'utf-8'));
-    
+           const productsData = JSON.parse(fs.readFileSync('products.json', 'utf-8'));
         const product = productsData.find(product => product.id === productId);
     
         if (!product) {
             throw new Error('El producto no fue encontrado.');
         }
-    
         const cartProduct = {
             id: this.autoIncrementId++,
             product: { ...product },
