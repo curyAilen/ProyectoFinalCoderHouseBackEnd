@@ -1,29 +1,66 @@
 <title>{{ title }}</title>
 </head>
-    {{>header}}
+{{>header}}
+
 <body class="container-fluid">
-  <div class="container mt-5">
-    <h1 class="mb-4">Carrito de Compras</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Cantidad</th>
-          <th>Precio</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each cart.products}}
-        <tr>
-          <td>{{this.title}}</td>
-          <td>{{this.quantity}}</td>
-          <td>${{this.price}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    <div class="text-right">
-      <h4>Total: ${{cart.totalPrice}}</h4>
+    <div class="container mt-5">
+        <h1 class="mb-4">Carrito de Compras</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each cart}}
+                <tr>
+                    <td>{{this.product.title}}</td>
+                    <td>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-light" onclick="decrement('{{this.product.id}}')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" name="quantity" value="{{this.quantity}}" min="1"
+                                id="quantityInput-{{this.product.id}}" class="form-control text-center">
+                            <button type="button" class="btn btn-light" onclick="increment('{{this.product.id}}')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td>${{this.product.price}}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="eliminarProducto('{{this.product.id}}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+
+        <div class="text-right">
+            <h4>Total: ${{cart.totalPrice}}</h4>
+        </div>
+        <button class="btn btn-primary">Realizar Pago</button>
     </div>
-    <button class="btn btn-primary">Realizar Pago</button>
-  </div>
+    <script>
+     
+    function increment(productId) {
+        const input = document.getElementById(`quantityInput-${productId}`);
+        input.value = parseInt(input.value) + 1;
+        updateCart(productId, input.value);
+    }
+
+    function decrement(productId) {
+        const input = document.getElementById(`quantityInput-${productId}`);
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateCart(productId, input.value);
+        }
+    }
+</script>
+

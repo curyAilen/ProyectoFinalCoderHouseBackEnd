@@ -19,16 +19,16 @@
         - stock:Number
         - category:String
         - thumbnails:Array de Strings que contenga las rutas donde están almacenadas las imágenes referentes a dicho producto
-    - Status es true por defecto.
-    - Todos los campos son obligatorios, a excepción de thumbnails
-    - La ruta PUT /:pid deberá tomar un producto y actualizarlo por los campos enviados desde body. NUNCA se debe actualizar o eliminar el id al momento de hacer dicha actualización.
-    - La ruta DELETE /:pid deberá eliminar el producto con el pid indicado. 
+    - Status es true por defecto.**✓**
+    - Todos los campos son obligatorios, a excepción de thumbnails **✓**
+    - La ruta PUT /:pid deberá tomar un producto y actualizarlo por los campos enviados desde body. NUNCA se debe actualizar o eliminar el id al momento de hacer dicha actualización.**✓**
+    - La ruta DELETE /:pid deberá eliminar el producto con el pid indicado. **✓**
 
 #### Cart
 -   Para el carrito, el cual tendrá su router en /api/carts/, configurar dos rutas
-    - La ruta raíz POST / deberá crear un nuevo carrito con la siguiente estructura
-        - Id:Number/String (A tu elección, de igual manera como con los productos, debes asegurar que nunca se dupliquen los ids y que este se autogenere).
-        - products: Array que contendrá objetos que representen cada producto
+    - La ruta raíz POST / deberá crear un nuevo carrito con la siguiente estructura **✓**
+        - Id:Number/String (A tu elección, de igual manera como con los productos, debes asegurar que nunca se dupliquen los ids y que este se autogenere). **✓**
+        - products: Array que contendrá objetos que representen cada producto **✓**
     - La ruta GET /:cid deberá listar los productos que pertenezcan al carrito con el parámetro cid proporcionados.
     - La ruta POST  /:cid/product/:pid deberá agregar el producto al arreglo “products” del carrito seleccionado, agregándose como un objeto bajo el siguiente formato.
         - product: SÓLO DEBE CONTENER EL ID DEL PRODUCTO (Es crucial que no agregues el producto completo)
