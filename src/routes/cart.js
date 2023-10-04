@@ -1,5 +1,6 @@
 import express from "express";
 import ProductManager from "../ProductManager.js";
+import fs from 'fs';
 import { readFileSync } from "fs";
 import path from "path"; 
 import __dirname from "../utils.js";
@@ -21,13 +22,16 @@ router.get("/", (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.post('/add', (req, res) => {
+
+router.post('/:pid', (req, res) => {
+  const productId = parseInt(req.params.pid);
     const { id, quantity } = req.body;
     cartManager.addToCart(id, parseInt(quantity));
     const cart = cartManager.getCart(); 
     res.render('cart', {
         title: 'Carrito',
-        cart: cart  
+        cart: cart  ,
+        productId: productId
     });
 });
 
