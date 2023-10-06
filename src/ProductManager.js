@@ -73,4 +73,3 @@ class ProductManager {
 export default ProductManager;
 
 
-////////////////////// T E S T E R /////////////////////// 

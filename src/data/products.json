@@ -1,0 +1,38 @@
+[
+  {
+    "id": 4,
+    "title": "FOOTER",
+    "description": "ge",
+    "price": "6",
+    "stock": "4",
+    "code": "001506",
+    "thumbnail": "1696553332135-Recurso 65granada.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Nuevo 1",
+    "description": "ble\r\n",
+    "price": "11",
+    "stock": "1111",
+    "code": "1234qdw",
+    "thumbnail": "1696553512899-Recurso 63granada.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Nuevo 2",
+    "description": "bleblelbel\r\n",
+    "price": "12",
+    "stock": "12",
+    "code": "1548",
+    "thumbnail": "1696553539612-Recurso 65granada.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Nuevo 4",
+    "description": "vsdfgvasd",
+    "price": "111",
+    "stock": "2",
+    "code": "123e",
+    "thumbnail": "1696553789004-Recurso 65granada.jpg"
+  }
+]

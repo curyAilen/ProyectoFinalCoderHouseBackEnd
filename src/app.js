@@ -1,11 +1,10 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import routerMain from './routes/main.js';
-import routerProducts from './routes/products.js';
-import routerCart from './routes/cart.js';
-
-import CartManager from "./CartManager.js";
+//RUTAS X CONTROLLER
+import cartRoutes from './routes/cartRoutes.js';
+import routerMain from './routes/mainRoutes.js';
+import routerProducts from './routes/productsRoutes.js';
 const app = express();
 
 app.engine('handlebars', handlebars.engine());
@@ -16,16 +15,15 @@ app.use(express.static( __dirname + '/views/partials/'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+
 app.use('/', routerMain);
-app.use('/api/products/', routerProducts);
-app.use('/api/cart/', routerCart);
+app.use('/api/cart', cartRoutes);
+app.use('/api/products', routerProducts);
 
 
-const cartManager = new CartManager();
 
-const server = app.listen(8080, () => {
-    console.log(`Servidor en funcionamiento en el puerto localhost:8080`);
+app.listen(8080, () => {
+  console.log('Servidor en ejecución en el puerto 8080');
+ 
 });
-server;
-
-

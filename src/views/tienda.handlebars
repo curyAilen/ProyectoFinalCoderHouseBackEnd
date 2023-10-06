@@ -4,7 +4,7 @@
     {{>header}}
     <div class="row">
         <h3 class="col-12">Tienda</h3>
-        {{#each productsFind}}
+        {{#each productos}}
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <img src="/img/{{ thumbnail }}" alt="Imagen del producto" class="card-img-top">
@@ -13,7 +13,7 @@
                         <p class="card-text">Disponibilidad: {{ stock }}</p>
                         <p class="card-text">Price: ${{ price }}</p>
                     </div>
-                    <a class="nav-link btn btn-primary" href="/api/products/{{ id }}">detalle</a>
+                    <a class="nav-link btn btn-primary" href="/api/products/detail/{{ id }}">detalle</a>
                 </div>
             </div>
         {{/each}}
