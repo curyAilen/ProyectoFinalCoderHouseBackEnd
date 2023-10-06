@@ -5,8 +5,9 @@
   {{>header}}
   <div class="container">
     <h2>Editar Producto</h2>
-    <form id="productForm" action="/api/products/{{ product.id }}" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="_method" value="PUT">
+   <form id="productForm" action="/api/products/edit/{{ product.id }}" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="_method" value="PUT">
+
 
       <div class="row">
         <div class="form-group col-lg-6">
@@ -44,14 +45,13 @@
           <textarea class="form-control" id="description" name="description" placeholder="Ingrese la descripción"
             required>{{ product.description }}</textarea>
         </div>
-
-        <input type="hidden" name="id" value="{{ product.id }}">
       </div>
       <button type="submit" class="btn btn-primary col-lg-3">Actualizar Producto</button>
     </form>
+
     <form action="/api/products/delete/{{ product.id }}" method="post" id="deleteForm">
       <input type="hidden" name="_method" value="DELETE">
-      <button type="button" onclick="deleteProduct('{{ product.id }}')" class="btn btn-danger">Eliminar
+      <button type="submit" onclick="deleteProduct('{{ product.id }}')" class="btn btn-danger">Eliminar
         Producto</button>
     </form>
 

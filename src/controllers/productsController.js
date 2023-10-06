@@ -66,20 +66,20 @@ const productController = {
     },
 
     edit: (req, res) => {
-        let idProduct = req.params.id;
+        let idProduct = req.params.pid;
         let findProduct = dataproductos.find((e) => {
             return e.id == idProduct;
         });
         res.render("editProduct", {
             titulo: "Editar Producto",
-            producto: findProduct,
+            product: findProduct,
         });
     },
 
     edited: (req, res) => {
-        let idProduct = req.params.id;
+        let idProduct = req.params.pid;
         let editProduct = {
-            id: parseInt(req.params.id),
+            id: parseInt(idProduct),
             title: req.body.title,
             description: req.body.description,
             price: req.body.price,
@@ -94,13 +94,13 @@ const productController = {
             }
         }
         fs.writeFileSync(pathproductos, JSON.stringify(dataproductos));
-        res.redirect('/api/products/detalle/' + idProduct);
+        res.redirect('/api/products/detail/' + idProduct);
     },
 
     delete: (req, res) => {
-
+        let idProduct = req.params.pid;
         for (let i = 0; i < dataproductos.length; i++) {
-            if (dataproductos[i].id == req.params.id) {
+            if (dataproductos[i].id == idProduct) {
                 dataproductos.splice(i, 1);
                 break;
             }

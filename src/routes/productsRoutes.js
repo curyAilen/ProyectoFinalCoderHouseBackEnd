@@ -21,6 +21,6 @@ router.get('/create', productController.create);
 router.post('/create', upload.single('thumbnail'), productController.store);
 router.get('/edit/:pid', productController.edit);
 router.put('/edit/:pid', upload.single('thumbnail'), productController.edited);
-router.delete('/delete/:id', productController.delete);
+router.delete('/delete/:pid', productController.delete);
 
 export default router;
