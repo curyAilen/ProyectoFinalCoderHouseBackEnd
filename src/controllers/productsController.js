@@ -15,13 +15,19 @@ function generateId() {
 
 const productController = {
 
-    list: (req, res) => {
-        res.render('tienda', {
+    list2: (req, res) => {
+        res.render('realtimeproducts', {
             titulo: 'Listado de productos',
-            productos: dataproductos
+            products: dataproductos
         });
     },
-
+    list: (req, res) => { 
+        io.emit('productos', dataproductos);    
+        res.render('realtimeproducts', {
+          titulo: 'Listado de productos',
+          products: dataproductos
+        });
+      },
     detalleProducto: (req, res) => {
         const productId = parseInt(req.params.pid);
 
