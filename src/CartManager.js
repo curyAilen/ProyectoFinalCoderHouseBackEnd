@@ -2,7 +2,7 @@ import fs from 'fs';
 
 class CartManager {
     constructor() {
-        this.path = 'cart.json';
+        this.path = './src/data/cart.json';
         this.products = [];
         this.autoIncrementId = 1;
     }
@@ -38,6 +38,7 @@ class CartManager {
 
     getCart() {
         return fs.readFileSync(this.path, 'utf-8') || [];
+
     }
     updateCart(productId, newQuantity) {
         const cartProduct = this.products.find(product => product.product.id === productId);

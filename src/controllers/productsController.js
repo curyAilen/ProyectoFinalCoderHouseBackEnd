@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
+import {io} from 'socket.io-client'
 const pathproductos = path.join(__dirname, '../src/data/products.json');
 const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
+const socket = io();
 
 function generateId() {
     let allProducts = dataproductos;
@@ -22,7 +24,7 @@ const productController = {
         });
     },
     list: (req, res) => { 
-        io.emit('productos', dataproductos);    
+        socket.emit('productos', dataproductos);    
         res.render('realtimeproducts', {
           titulo: 'Listado de productos',
           products: dataproductos

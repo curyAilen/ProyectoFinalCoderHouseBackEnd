@@ -13,7 +13,7 @@
                     <p class="card-text">Price: ${{ product.price }}</p>
                 </div>              
                 <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary ">Editar Producto</a>
-                <form action="/api/cart/product/:pid" method="post">
+                <form action="/api/cart/add/:pId" method="post">
                     <input type="hidden" name="productId" value="{{ product.id }}">
                     <button type="submit" class="btn btn-primary ">Agregar al Carrito</button>
                 </form>

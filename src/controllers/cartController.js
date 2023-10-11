@@ -40,10 +40,14 @@ const cartController = {
 
   getCart: (req, res) => {
     try {
-      const cart = CartManager.getCart();
+      const cartManager = new CartManager();
+      const cart = cartManager.getCart();
+    /*  res.render('cart', {
+        titulo: 'Cart',
+        cart: cart*/
       res.status(200).json(cart);
     } catch (error) {
-      res.status(500).json({ error: 'Error al obtener el carrito' });
+      res.status(500).json({ error: 'Error al obtener el carrito ' + error});
     }
   }
 };

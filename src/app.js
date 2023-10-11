@@ -37,6 +37,9 @@ import routerMain from './routes/mainRoutes.js';
 import routerProducts from './routes/productsRoutes.js';
 
 
+app.use('/', routerMain);
+app.use('/api/cart', cartRoutes);
+app.use('/api/products', routerProducts);
 
 app.engine('handlebars', handlebars.engine());
 app.set ('views', __dirname+'/views');
@@ -48,9 +51,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.use('/', routerMain);
-app.use('/api/cart', cartRoutes);
-app.use('/api/products', routerProducts);
 
 
 
