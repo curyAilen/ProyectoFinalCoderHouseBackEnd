@@ -11,12 +11,44 @@
                     <h4 class="card-title">Title: {{ product.title }}</h4>
                     <p class="card-text">Disponibilidad: {{ product.stock }}</p>
                     <p class="card-text">Price: ${{ product.price }}</p>
-                </div>              
+                </div>
                 <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary ">Editar Producto</a>
-                <form action="/api/cart/add/{{ product.id }}" method="post">
+                <form action="/api/cart/add/{{ product.id }}" method="post" class="row">
                     <input type="hidden" name="productId" value="{{ product.id }}">
+                    <input type="hidden" name="title" value="{{ product.title }}">
+                    <input type="hidden" name="stock" value="{{ product.stock }}">
+                    <input type="hidden" name="price" value="{{ product.price }}">
+                    <input type="hidden" name="description" value="{{ product.description }}">
+                    <input type="hidden" name="code" value="{{ product.code }}">
+                    
+                        <div class="input-group col-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
+                            </div>
+                           <input id="quantity" type="number" class="form-control text-center" value="1" name="quantity">
+
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="increment()">+</button>
+                            </div>
+                        </div>
+                   
                     <button type="submit" class="btn btn-primary ">Agregar al Carrito</button>
                 </form>
             </div>
+
         </div>
     </div>
+
+    <script>
+        function increment() {
+            const input = document.getElementById('quantity');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrement() {
+            const input = document.getElementById('quantity');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+    </script>

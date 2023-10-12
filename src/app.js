@@ -2,7 +2,6 @@ import express from 'express';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import handlebars from 'express-handlebars';
-import path from 'path';
 import __dirname from './utils.js';
 
 const app = express();
@@ -12,15 +11,9 @@ const messages = [];
 
 io.on('connection', (socket) => {
     console.log(`Cliente conectado: ${socket.id}`);
-    
-    // Envía la lista de mensajes al cliente que se conecta
-    socket.emit('messages', messages);
-    
+    socket.emit('messages', messages);    
     socket.on('message', (message) => {
-      // Almacena el mensaje en el servidor
       messages.push({ socketId: socket.id, message });
-      
-      // Emite el mensaje a todos los clientes
       io.emit('message', { socketId: socket.id, message });
     });
     

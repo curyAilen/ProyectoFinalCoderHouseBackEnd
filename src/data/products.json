@@ -43,5 +43,14 @@
     "stock": "10",
     "code": "ACERCA",
     "thumbnail": "1697128785765-LOGOwINEbOX-01-01.png"
+  },
+  {
+    "id": 9,
+    "title": "nuevo producto 2",
+    "description": "ble ble ble",
+    "price": "4555",
+    "stock": "8",
+    "code": "ACERCA",
+    "thumbnail": "1697132209880-etiqeutas yosh.jpg"
   }
 ]

@@ -7,14 +7,14 @@ class CartManager {
         this.autoIncrementId = 1;
     }
     
-    addToCart(productId, quantity) {
-        const productIndex = this.products.findIndex(item => item.product.id === productId);
+    addToCart(pid, quantity) {
+        const productIndex = this.products.findIndex(item => item.product.id === pid);
     
         if (productIndex !== -1) {
             this.products[productIndex].quantity += quantity;
         } else {
             const productsData = JSON.parse(fs.readFileSync('products.json', 'utf-8'));
-            const product = productsData.find(product => product.id === productId);
+            const product = productsData.find(product => product.id === pid);
     
             if (!product) {
                 throw new Error('El producto no fue encontrado.');
