@@ -85,9 +85,9 @@ const productController = {
     },
 
     edited: (req, res) => {
-        let idProduct = req.params.pid;
+        let pid = req.params.pid;
         let editProduct = {
-            id: parseInt(idProduct),
+            id: parseInt(pid),
             title: req.body.title,
             description: req.body.description,
             price: req.body.price,
@@ -102,7 +102,7 @@ const productController = {
             }
         }
         fs.writeFileSync(pathproductos, JSON.stringify(dataproductos));
-        res.redirect('/api/products/detail/' + idProduct);
+        res.redirect('/api/products/detail/' + pid);
     },
 
     delete: (req, res) => {

@@ -34,5 +34,14 @@
     "stock": "2",
     "code": "123e",
     "thumbnail": "1696553789004-Recurso 65granada.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Nuevo producto",
+    "description": "ble",
+    "price": "1555",
+    "stock": "10",
+    "code": "ACERCA",
+    "thumbnail": "1697128785765-LOGOwINEbOX-01-01.png"
   }
 ]
