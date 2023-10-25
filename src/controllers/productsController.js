@@ -6,6 +6,7 @@ const pathproductos = path.join(__dirname, '../src/data/products.json');
 const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
 const socket = io();
 
+
 function generateId() {
     let allProducts = dataproductos;
     let lastProduct = allProducts.pop();
@@ -23,6 +24,7 @@ const productController = {
             products: dataproductos
         });
     },
+    
     list: (req, res) => { 
         socket.emit('productos', dataproductos);    
         res.render('realtimeproducts', {

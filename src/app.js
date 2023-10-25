@@ -3,6 +3,7 @@ import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
+import mongoose, { mongo } from 'mongoose';
 
 const app = express();
 const server = http.createServer(app);
@@ -43,7 +44,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+mongoose.connect('mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority', (error =>{
+  if(error){
+    console.log("No se pudo conectar "+ error)
+    process.exit();
+  }
+}))
 
 server.listen(8080, () => {
   console.log(`Servidor en ejecución en el puerto 8080`);
