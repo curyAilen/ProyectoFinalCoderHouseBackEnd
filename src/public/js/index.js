@@ -1,29 +1,29 @@
 const socket = io();
 
-socket.on('realtimeproducts', (productos) => {
-    const productosContainer = document.getElementById('productosContainer');
-    productosContainer.innerHTML = '';
+socket.on('realtimeproducts', (products) => {
+    const productsContainer = document.getElementById('productsContainer');
+    productsContainer.innerHTML = '';
     const titleTest = document.createElement('p')
     titleTest.innerText = `Producto tomado mediante socket`;
 
-    productos.forEach((producto) => {
+    products.forEach((product) => {
       const productCard = document.createElement('div');
       productCard.classList.add('card');
 
 
       const title = document.createElement('h4');
-      title.innerText = `Title: ${producto.title}`;
+      title.innerText = `Title: ${product.title}`;
 
       const stock = document.createElement('p');
-      stock.innerText = `Disponibilidad: ${producto.stock}`;
+      stock.innerText = `Disponibilidad: ${product.stock}`;
 
       const price = document.createElement('p');
-      price.innerText = `Price: $${producto.price}`;
+      price.innerText = `Price: $${product.price}`;
 
       productCard.appendChild(title);
       productCard.appendChild(stock);
       productCard.appendChild(price);
 
-      productosContainer.appendChild(productCard);
+      productsContainer.appendChild(productCard);
     });
   });

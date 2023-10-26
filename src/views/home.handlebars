@@ -7,11 +7,11 @@
         {{#each products}}
             <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="/img/{{ thumbnail }}" alt="Imagen del producto" class="card-img-top">
+                    <img src="/img/{{ this.thumbnail }}" alt="Imagen del producto" class="card-img-top">
                     <div class="card-body">
-                        <h4 class="card-title">Title: {{ title }}</h4>
-                        <p class="card-text">Disponibilidad: {{ stock }}</p>
-                        <p class="card-text">Price: ${{ price }}</p>
+                        <h4 class="card-title">Title: {{ this.title }}</h4>
+                        <p class="card-text">Disponibilidad: {{ this.stock }}</p>
+                        <p class="card-text">Price: ${{ this.price }}</p>
                     </div>
                 </div>
             </div>

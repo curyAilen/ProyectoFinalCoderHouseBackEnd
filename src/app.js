@@ -1,11 +1,17 @@
 import express from 'express';
-import http from 'http';
-import { Server as SocketIOServer } from 'socket.io';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
+import cartRoutes from './routes/cartRoutes.js';
+import routerMain from './routes/mainRoutes.js';
+import routerProducts from './routes/productsRoutes.js';
 
 const app = express();
+const mongoURL = 'mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority'
+const mongoDBName = 'dosAgujas'
+
+import http from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 const server = http.createServer(app);
 const io = new SocketIOServer(server);;
 const messages = [];
@@ -22,35 +28,26 @@ io.on('connection', (socket) => {
       console.log(`Cliente desconectado: ${socket.id}`);
     });
   });
-  
 
 
-//RUTAS X CONTROLLER
-import cartRoutes from './routes/cartRoutes.js';
-import routerMain from './routes/mainRoutes.js';
-import routerProducts from './routes/productsRoutes.js';
-
-
-app.use('/', routerMain);
-app.use('/api/cart', cartRoutes);
-app.use('/api/products', routerProducts);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 app.engine('handlebars', handlebars.engine());
 app.set ('views', __dirname+'/views');
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname+'/public'));
 app.use(express.static( __dirname + '/views/partials/'))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
+app.use('/', routerMain);
+app.use('/api/cart', cartRoutes);
+app.use('/api/products', routerProducts);
 
-mongoose.connect('mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority', (error =>{
-  if(error){
-    console.log("No se pudo conectar "+ error)
-    process.exit();
-  }
-}))
-
-server.listen(8080, () => {
-  console.log(`Servidor en ejecución en el puerto 8080`);
-});
+mongoose.connect(mongoURL, { dbName: mongoDBName})
+    .then(() => {
+        console.log('DB connected! 😎 ')
+        app.listen(8080, () => console.log(`Listening 🏃...`)) 
+    })
+    .catch(error => {
+        console.error('Error connect DB 🚑 ')
+    })

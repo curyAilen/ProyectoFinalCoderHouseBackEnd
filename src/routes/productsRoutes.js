@@ -1,7 +1,6 @@
 import express from "express";
 import productController from "../controllers/productsController.js";
-const router = express.Router();
-import {productsModel} from '../models/produts.models.js'
+import { Router } from "express";
 import multer from 'multer';
 
 const storage = multer.diskStorage({
@@ -14,10 +13,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
-router.get('/', async(req, res)=>{
-  //IMPLEMENTAR MONGO PARA TRAER PRODUCTOS
-})
+const router = Router()
 
 router.get('/', productController.list);
 router.get('/detail/:pid', productController.detalleProducto);

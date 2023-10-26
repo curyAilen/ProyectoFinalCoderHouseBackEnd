@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
-import {io} from 'socket.io-client'
+
+import {io} from 'socket.io-client';
+import productsModel from '../models/products.models.js';
+
 const pathproductos = path.join(__dirname, '../src/data/products.json');
 const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
 const socket = io();
-
 
 function generateId() {
     let allProducts = dataproductos;
@@ -18,6 +20,12 @@ function generateId() {
 
 const productController = {
 
+    list: async(req, res)=>{
+        const products = await productsModel.find({}).lean().exec()
+        console.log("OK")
+        res.render('realtimeproducts', {products})
+      },
+      
     list2: (req, res) => {
         res.render('realtimeproducts', {
             titulo: 'Listado de productos',
@@ -25,7 +33,7 @@ const productController = {
         });
     },
     
-    list: (req, res) => { 
+    list1: (req, res) => { 
         socket.emit('productos', dataproductos);    
         res.render('realtimeproducts', {
           titulo: 'Listado de productos',
