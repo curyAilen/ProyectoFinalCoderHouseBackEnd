@@ -16,7 +16,7 @@ function generateId() {
         return lastProduct.id + 1;
     }
     return 1;
-}
+} 
 
 const productController = {
 
@@ -24,21 +24,6 @@ const productController = {
         const products = await productsModel.find({}).lean().exec()
         console.log("OK")
         res.render('realtimeproducts', {products})
-      },
-      
-    list2: (req, res) => {
-        res.render('realtimeproducts', {
-            titulo: 'Listado de productos',
-            products: dataproductos
-        });
-    },
-    
-    list1: (req, res) => { 
-        socket.emit('productos', dataproductos);    
-        res.render('realtimeproducts', {
-          titulo: 'Listado de productos',
-          products: dataproductos
-        });
       },
     detalleProducto: (req, res) => {
         const productId = parseInt(req.params.pid);
@@ -53,6 +38,15 @@ const productController = {
             titulo: 'Detalle del Producto',
             product: productoEncontrado
         });
+    },
+    detailProduct: async(req, res) => {
+        try {
+            const id = req.params.id
+            const product = await productsModel.findOne({ _id: id }).lean().exec()
+            res.render('detalleProduct', {product})
+        } catch (error) {
+            res.send({error: 'No se encuentra el producto'})
+        }
     },
 
     create: (req, res) => {
