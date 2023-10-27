@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
 import productsModel from '../models/products.models.js';
-const pathproductos = path.join(__dirname, '../src/data/products.json');
-const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
+import messageModel from '../dao/models/messege.model.js'
 
 
 const mainController = {
@@ -12,6 +11,22 @@ const mainController = {
         console.log("OK")
         res.render('home', {products})
       },
+      chat: async (req, res) => {
+        const user = req.body.user;
+        const message = req.body.message;    
+        try {    
+            const newMessage = new messageModel({
+                user: user,
+                message: message,
+            });
+            await newMessage.save();
+            res.redirect('/chat');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al guardar el mensaje');
+        }
+      }
+    
 }
 
 export default mainController;

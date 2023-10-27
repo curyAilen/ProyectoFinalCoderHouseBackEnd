@@ -1,8 +1,9 @@
-//import CartManager from "../CartManager.js";
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
-const pathcart = path.join(__dirname, '../src/data/cart.json');
+const cartFilePath  = path.join(__dirname, '../src/data/cart.json');
+const cartData = fs.readFileSync(cartFilePath, 'utf-8');
+const cart = JSON.parse(cartData);
 
 function generateId() {
   let allProductsinCart = dataproductoinCarts;
@@ -29,38 +30,22 @@ const cartController = {
     const pid = req.params.pid;
     const quantity = req.body.quantity;
 
-    // Verifica si el archivo cart.json existe, si no, lo crea
     if (!fs.existsSync(pathcart)) {
-      fs.writeFileSync(pathcart, '[]', 'utf-8');
-    }
-
-    // Aquí deberías obtener los detalles del producto según su id (pid)
-    // Supongo que tienes una función getProductDetailsById para obtener estos detalles
+      fs.writeFileSync(pathcart, '[]', 'utf-8');    }
     const productDetails = getProductDetailsById(pid);
-
     if (!productDetails) {
       res.status(404).json({ error: 'Producto no encontrado.' });
       return;
     }
-
-    // Crear el objeto del nuevo producto en el carrito
     const newProductinCart = {
       id: generateId(),
       ...productDetails,
       quantity: parseInt(quantity),
-    };
-
-    // Leer los productos actuales en el carrito
+        };
     const data = fs.readFileSync(pathcart, 'utf-8');
     const currentProductsinCart = JSON.parse(data || '[]');
-
-    // Agregar el nuevo producto al carrito
     currentProductsinCart.push(newProductinCart);
-
-    // Guardar los productos actualizados en el carrito
     fs.writeFileSync(pathcart, JSON.stringify(currentProductsinCart, null, 2));
-
-    // Redireccionar a la página principal o a donde desees
     res.redirect('/');
   },
 
@@ -90,12 +75,10 @@ const cartController = {
 
   getCart: (req, res) => {
     try {
-      const cartManager = new CartManager();
-      const cart = cartManager.getCart();
-    /*  res.render('cart', {
-        titulo: 'Cart',
-        cart: cart*/
-      res.status(200).json(cart);
+     res.render('cart', {
+        titulo: 'Cart', 
+        cart: cart
+    })
     } catch (error) {
       res.status(500).json({ error: 'Error al obtener el carrito ' + error});
     }

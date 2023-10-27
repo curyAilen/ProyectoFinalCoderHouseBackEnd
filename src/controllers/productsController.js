@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
-
 import {io} from 'socket.io-client';
 import productsModel from '../models/products.models.js';
 
