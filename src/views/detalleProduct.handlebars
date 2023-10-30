@@ -12,8 +12,8 @@
                     <p class="card-text">Disponibilidad: {{ product.stock }}</p>
                     <p class="card-text">Price: ${{ product.price }}</p>
                 </div>
-                <a href="/api/products/edit/{{ product.id }}" class="btn btn-primary ">Editar Producto</a>
-                <form action="/api/cart/add/{{ product.id }}" method="post" class="row">
+                <a href="/products/edit/{{ product._id }}" class="btn btn-primary ">Editar Producto</a>
+                <form action="/cart/add/{{ product._id }}" method="post" class="row">
                     <input type="hidden" name="productId" value="{{ product.id }}">
                     <input type="hidden" name="title" value="{{ product.title }}">
                     <input type="hidden" name="stock" value="{{ product.stock }}">

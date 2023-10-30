@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
-import productsModel from '../models/products.models.js';
+import productsModel from '../dao/models/products.models.js';
 import messageModel from '../dao/models/messege.model.js'
 
 

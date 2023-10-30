@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
 import {io} from 'socket.io-client';
-import productsModel from '../models/products.models.js';
+import productsModel from '../dao/models/products.models.js';
 
 const pathproductos = path.join(__dirname, '../src/data/products.json');
 const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
@@ -24,23 +24,9 @@ const productController = {
         console.log("OK")
         res.render('realtimeproducts', {products})
       },
-    detalleProducto: (req, res) => {
-        const productId = parseInt(req.params.pid);
-
-        const productoEncontrado = dataproductos.find(producto => producto.id === productId);
-
-        if (!productoEncontrado) {
-            return res.status(404).send('Producto no encontrado.');
-        }
-
-        res.render('detalleProduct', {
-            titulo: 'Detalle del Producto',
-            product: productoEncontrado
-        });
-    },
     detailProduct: async(req, res) => {
         try {
-            const id = req.params.id
+            const id = req.params.pid
             const product = await productsModel.findOne({ _id: id }).lean().exec()
             res.render('detalleProduct', {product})
         } catch (error) {
@@ -105,7 +91,7 @@ const productController = {
             }
         }
         fs.writeFileSync(pathproductos, JSON.stringify(dataproductos));
-        res.redirect('/api/products/detail/' + pid);
+        res.redirect('/products/detail/' + pid);
     },
 
     delete: (req, res) => {
@@ -117,7 +103,7 @@ const productController = {
             }
         }
         fs.writeFileSync(pathproductos, JSON.stringify(dataproductos));
-        res.redirect('/api/products/')
+        res.redirect('/products/')
     }
 
 }

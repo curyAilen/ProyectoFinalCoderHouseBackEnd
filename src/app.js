@@ -24,8 +24,8 @@ app.use(express.static(__dirname+'/public'));
 app.use(express.static( __dirname + '/views/partials/'))
 
 app.use('/', routerMain);
-app.use('/api/cart', cartRoutes);
-app.use('/api/products', routerProducts);
+app.use('/cart', cartRoutes);
+app.use('/products', routerProducts);
 
 
 mongoose.connect(mongoURL, { dbName: mongoDBName })
