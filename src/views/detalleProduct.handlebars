@@ -14,12 +14,11 @@
                 </div>
                 <a href="/products/edit/{{ product._id }}" class="btn btn-primary ">Editar Producto</a>
                 <form action="/cart/add/{{ product._id }}" method="post" class="row">
-                    <input type="hidden" name="productId" value="{{ product.id }}">
+                    {{!-- <input type="hidden" name="productId" value="{{ product._id }}">
                     <input type="hidden" name="title" value="{{ product.title }}">
                     <input type="hidden" name="stock" value="{{ product.stock }}">
                     <input type="hidden" name="price" value="{{ product.price }}">
-                    <input type="hidden" name="description" value="{{ product.description }}">
-                    <input type="hidden" name="code" value="{{ product.code }}">
+                    <input type="hidden" name="code" value="{{ product.code }}"> --}}
                     
                         <div class="input-group col-3">
                             <div class="input-group-prepend">

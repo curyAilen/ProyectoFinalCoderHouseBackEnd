@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import __dirname from '../utils.js';
-const cartFilePath  = path.join(__dirname, '../src/data/cart.json');
-const cartData = fs.readFileSync(cartFilePath, 'utf-8');
-const cart = JSON.parse(cartData);
+import productsModel from '../dao/models/products.models.js';
+import cartsModel from '../dao/models/carts.model.js';
+// const cartFilePath  = path.join(__dirname, '../src/data/cart.json');
+// const cartData = fs.readFileSync(cartFilePath, 'utf-8');
+// const cart = JSON.parse(cartData);
 
 function generateId() {
   let allProductsinCart = dataproductoinCarts;
@@ -15,38 +17,15 @@ function generateId() {
 }
 
 const cartController = {
-  addToCart2: (req, res) => {
-    const productId = req.params.productId;
-    const quantity = parseInt(req.body.quantity);
-
+  addToCart: async (req, res) => {   
     try {
-      const updatedCart = CartManager.addToCart(productId, quantity);
-      res.status(200).json(updatedCart);
+      const productId = req.params.cid;
+      const product = await productsModel.findOne({ _id: productId }).lean().exec();
+  
+      console.log('OK ' + product._id)
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: 'Error al obtener detalles del producto: ' + error.message });
     }
-  },
-  addToCart: (req, res) => {
-    const pid = req.params.pid;
-    const quantity = req.body.quantity;
-
-    if (!fs.existsSync(pathcart)) {
-      fs.writeFileSync(pathcart, '[]', 'utf-8');    }
-    const productDetails = getProductDetailsById(pid);
-    if (!productDetails) {
-      res.status(404).json({ error: 'Producto no encontrado.' });
-      return;
-    }
-    const newProductinCart = {
-      id: generateId(),
-      ...productDetails,
-      quantity: parseInt(quantity),
-        };
-    const data = fs.readFileSync(pathcart, 'utf-8');
-    const currentProductsinCart = JSON.parse(data || '[]');
-    currentProductsinCart.push(newProductinCart);
-    fs.writeFileSync(pathcart, JSON.stringify(currentProductsinCart, null, 2));
-    res.redirect('/');
   },
 
   removeFromCart: (req, res) => {
@@ -74,7 +53,7 @@ const cartController = {
   },
 
   getCart: (req, res) => {
-    try {
+    try { 
      res.render('cart', {
         titulo: 'Cart', 
         cart: cart
