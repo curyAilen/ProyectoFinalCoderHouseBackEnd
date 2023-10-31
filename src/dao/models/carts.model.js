@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const cartsCollection = 'carts';
 const cartSchema = new mongoose.Schema({
+    date: { type: Date, default: Date.now },
     products: {
         type: [
         {

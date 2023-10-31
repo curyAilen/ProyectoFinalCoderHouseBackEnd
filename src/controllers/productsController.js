@@ -20,10 +20,22 @@ function generateId() {
 const productController = {
 
     list: async(req, res)=>{
-        const products = await productsModel.find({}).lean().exec()
-        console.log("OK")
-        res.render('realtimeproducts', {products})
+       // const products = await productsModel.find({}).lean().exec()
+  
+        const page = parseInt(req.query?.page ?? 1);
+        const limit = 10;
+      
+        const result = await productsModel.paginate({}, {
+            page,
+            limit,
+            lean: true 
+        })
+    
+        result.prevLink = result.hasPrevPage ? `/?page=${result.prevPage}&limit=${limit}` : '';
+        result.nextLink = result.hasNextPage ? `/?page=${result.nextPage}&limit=${limit}` : '';
+        res.render('realtimeproducts', { products: result.docs, pagination: result });
       },
+
     detailProduct: async(req, res) => {
         try {
             const id = req.params.pid
