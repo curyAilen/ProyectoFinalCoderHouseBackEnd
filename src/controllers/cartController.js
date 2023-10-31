@@ -21,8 +21,17 @@ const cartController = {
     try {
       const productId = req.params.cid;
       const product = await productsModel.findOne({ _id: productId }).lean().exec();
-  
-      console.log('OK ' + product._id)
+      const totalQuantity = req.body.quantity;
+      console.log('OK ' + product.title)
+     
+      const cart = await cartsModel.create({
+        products: [{ product, quantity: totalQuantity }],
+        totalPrice: product.price * totalQuantity,    });
+
+      console.log(JSON.stringify(cart, null, '\t'))
+      res.status(200).json(cart);
+      process.exit()
+      
     } catch (error) {
       res.status(500).json({ error: 'Error al obtener detalles del producto: ' + error.message });
     }
