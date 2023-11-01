@@ -52,14 +52,14 @@ const productController = {
     store: async (req, res) => {
         try {
           const { title, description, price, stock, code, thumbnail } = req.body;
-       
+          const ext = req.file.originalname.split('.').pop();
           const newProduct = await productsModel.create({
             title: title,
             description: description,
             price: price,
             stock: stock,
             code: code,
-            thumbnail: thumbnail
+            thumbnail: thumbnail+ "."+ ext
           });
      
           console.log('Producto guardado:', newProduct);
