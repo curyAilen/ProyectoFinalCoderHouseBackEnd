@@ -19,12 +19,9 @@ function generateId() {
 
 const productController = {
 
-    list: async(req, res)=>{
-       // const products = await productsModel.find({}).lean().exec()
-  
+    list: async(req, res)=>{  
         const page = parseInt(req.query?.page ?? 1);
-        const limit = 10;
-      
+        const limit = 10;      
         const result = await productsModel.paginate({}, {
             page,
             limit,
@@ -52,28 +49,25 @@ const productController = {
         });
     },
 
-    store: (req, res) => {
-        if (!fs.existsSync(pathproductos)) {
-            fs.writeFileSync(pathproductos, '[]', 'utf-8');
+    store: async (req, res) => {
+        try {
+          const { title, description, price, stock, code, thumbnail } = req.body;
+       
+          const newProduct = await productsModel.create({
+            title: title,
+            description: description,
+            price: price,
+            stock: stock,
+            code: code,
+            thumbnail: thumbnail
+          });
+     
+          console.log('Producto guardado:', newProduct);
+          res.redirect('/products/detail/' + newProduct._id); 
+        } catch (error) {
+          res.status(500).send("No se puede agregar el producto: " + error);
         }
-    
-        const newProduct = {
-            id: generateId(),
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            stock: req.body.stock,
-            code: req.body.code,
-            thumbnail: req.file.filename
-        };
-
-        const data = fs.readFileSync(pathproductos, 'utf-8');
-        const currentProducts = JSON.parse(data || '[]');
-        currentProducts.push(newProduct);
-        fs.writeFileSync(pathproductos, JSON.stringify(currentProducts, null, 2));    
-        res.redirect('/');
-    },
-
+      },
     edit: (req, res) => {
         let idProduct = req.params.pid;
         let findProduct = dataproductos.find((e) => {
