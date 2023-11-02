@@ -1,4 +1,3 @@
-
 import __dirname from '../utils.js';
 import productsModel from '../dao/models/products.models.js';
 import cartsModel from '../dao/models/carts.model.js';
@@ -7,23 +6,22 @@ import cartsModel from '../dao/models/carts.model.js';
 const cartController = {
   addToCart: async (req, res) => {   
     try {
-      const productId = req.params.cid;
+      const productId = req.params.pid;
       const product = await productsModel.findOne({ _id: productId }).lean().exec();
       const totalQuantity = req.body.quantity;
       console.log('OK ' + product.title)
 
      const totalPrice = product.price * totalQuantity;
      const newProductInCart =[
-      { product, 
+      { product: product, 
         quantity: totalQuantity  
       }
     ]
-      const cart = await cartsModel.insertOne({
+   const cart = await cartsModel.create({
         products: newProductInCart,
         totalPrice: totalPrice,          
             });
       
-      console.log(JSON.stringify(cart, null, '\t'))
      res.redirect('cart',{cart})
       
       

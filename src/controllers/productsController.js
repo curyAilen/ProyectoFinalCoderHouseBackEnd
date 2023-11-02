@@ -20,19 +20,34 @@ function generateId() {
 const productController = {
 
     list: async(req, res)=>{  
-        const page = parseInt(req.query?.page ?? 1);
-        const limit = 10;      
-        const result = await productsModel.paginate({}, {
-            page,
-            limit,
-            lean: true 
-        })
-    
-        result.prevLink = result.hasPrevPage ? `/?page=${result.prevPage}&limit=${limit}` : '';
-        result.nextLink = result.hasNextPage ? `/?page=${result.nextPage}&limit=${limit}` : '';
-        res.render('realtimeproducts', { products: result.docs, pagination: result });
-      },
-
+        try {
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+      
+            const options = {
+              page,
+              limit,
+              lean: true,
+            };
+      
+            const result = await productsModel.paginate({}, options);
+      
+            const pagination = {
+              totalPages: result.totalPages,
+              prevPage: result.hasPrevPage ? page - 1 : null,
+              nextPage: result.hasNextPage ? page + 1 : null,
+              hasPrevPage: result.hasPrevPage,
+              hasNextPage: result.hasNextPage,
+            };
+      
+            res.render('realtimeproducts', {
+              products: result.docs,
+              pagination,
+            });
+          } catch (error) {
+            res.status(500).json({ status: 'error', error: error.message });
+          }
+        },
     detailProduct: async(req, res) => {
         try {
             const id = req.params.pid

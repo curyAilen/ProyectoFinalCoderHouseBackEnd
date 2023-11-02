@@ -2,19 +2,19 @@
 </head>
 <body class="container-fluid">
     {{>header}}
-    <div class="row">
-       <h3> Total product: {{ totalDocs }}</h3>
+     <div class="row">
+        <h3 class="col-12 text-center">Total Products: {{ pagination.totalDocs }}</h3>
         <br>
-        {{#if hasPrevPage}}
-            <a href="{{prevLink}}">Previus</a>
+        {{#if pagination.hasPrevPage}}
+            <a href="{{ pagination.prevLink }}" class="btn">Previous</a>
         {{/if}}
         -
-        {{#if hasNextPage}}
-            <a href="{{nextLink}}">Next</a>
+        {{#if pagination.hasNextPage}}
+            <a href="{{ pagination.nextLink }}" class="btn">Next</a>
         {{/if}}
     </div>
     <div class="row">
-        <h3 class="col-12">Tienda</h3>
+        <h3 class="col-12 text-center">Tienda</h3>
         {{#each products}}
             <div class="col-md-4 mb-3">
                 <div class="card">
