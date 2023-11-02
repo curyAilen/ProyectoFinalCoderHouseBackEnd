@@ -31,6 +31,22 @@ const cartController = {
       });
     }
   },
+  remove: async(req, res) => {
+  const productId = req.params.cid;
+    try {
+      const product = await cartsModel.findOne({products:{_id: productId} }).lean().exec();
+
+      if (!product) {
+        return res.status(404).json({ error: "Producto no encontrado" });
+      }else{
+       await cartsModel.deleteOne({_id:productId})
+     res.redirect('/cart/getCart')
+      }    
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+      res.status(500).json({ error: "Error al eliminar el producto" });
+    }
+  },
 
   removeFromCart: (req, res) => {
     const productId = req.params.productId;

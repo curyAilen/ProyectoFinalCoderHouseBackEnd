@@ -32,9 +32,12 @@
                     </td>
                     <td>${{this.productId.price}}</td>
                     <td>
-                        <button class="btn btn-danger" onclick="eliminarProducto('{{this.productId._id}}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <form action="/cart/remove/{{this.productId._id}}" method="POST" id="deleteForm">
+                            <!--<input type="hidden" name="_method" value="DELETE">-->
+                            <button class="btn btn-danger" onclick="deleteProduct('{{this.productId._id}}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 {{/each}}
@@ -48,19 +51,23 @@
         <button class="btn btn-primary">Realizar Pago</button>
     </div>
     <script>
-     
-    function increment(productId) {
-        const input = document.getElementById(`quantityInput-${productId}`);
-        input.value = parseInt(input.value) + 1;
-        updateCart(productId, input.value);
-    }
-
-    function decrement(productId) {
-        const input = document.getElementById(`quantityInput-${productId}`);
-        if (parseInt(input.value) > 1) {
-            input.value = parseInt(input.value) - 1;
+        function deleteProduct() {
+            const confirmation = confirm('¿Estás seguro de que deseas eliminar este producto?');
+            if (confirmation) {
+                document.getElementById('deleteForm').submit();
+            }
+        }
+        function increment(productId) {
+            const input = document.getElementById(`quantityInput-${productId}`);
+            input.value = parseInt(input.value) + 1;
             updateCart(productId, input.value);
         }
-    }
-</script>
 
+        function decrement(productId) {
+            const input = document.getElementById(`quantityInput-${productId}`);
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                updateCart(productId, input.value);
+            }
+        }
+    </script>
