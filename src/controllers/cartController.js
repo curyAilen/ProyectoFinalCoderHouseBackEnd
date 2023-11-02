@@ -5,28 +5,30 @@ import cartsModel from "../dao/models/carts.model.js";
 const cartController = {
   addToCart: async (req, res) => {
     try {
-      const productId = req.params.pid;
-      const product = await productsModel
-        .findOne({ _id: productId })
-        .lean()
-        .exec();
+      const cartId = '654304cf7b881d111b3532a5'; 
+      const cart = await cartsModel.findOne({ _id: cartId }).lean().exec();
+      
+      if (!cart) {
+        return res.status(404).json({ error: "No se encontró el carrito" });
+      }  
+      const productId = req.params.cid;
+      const product = await productsModel.findOne({ _id: productId }).lean().exec();  
+
+      if (!product) {
+        return res.status(404).json({ error: "No se encontró el producto" });
+      }  
       const totalQuantity = req.body.quantity;
-      console.log("OK " + product.title);
-
-      const totalPrice = product.price * totalQuantity;
-      const newProductInCart = [{ product: product, quantity: totalQuantity }];
-      const cart = await cartsModel.create({
-        products: newProductInCart,
-        totalPrice: totalPrice,
-      });
-
-      res.redirect("cart", { cart });
+      const totalPrice = product.price * totalQuantity;  
+      const newProductInCart = { product, quantity: totalQuantity };
+      cart.products.push(newProductInCart);        
+      await cartsModel.updateOne({ _id: cartId }, { products: cart.products });
+  
+    
+      res.redirect('/cart/getCart/'); 
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Error al obtener detalles del producto: " + error.message,
-        });
+      res.status(500).json({
+        error: "Error al agregar el producto al carrito: " + error.message,
+      });
     }
   },
 
