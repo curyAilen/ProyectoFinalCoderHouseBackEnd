@@ -5,7 +5,7 @@
   {{>header}}
   <div class="container">
     <h2>Editar Producto</h2>
-   <form id="productForm" action="/products/edit/{{ product.id }}" method="post" enctype="multipart/form-data">
+   <form id="productForm"  action="/products/edit/{{product._id}}"  method="POST" enctype="multipart/form-data">
   <input type="hidden" name="_method" value="PUT">
 
 

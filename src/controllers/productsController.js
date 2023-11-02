@@ -1,21 +1,21 @@
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 import __dirname from '../utils.js';
 import {io} from 'socket.io-client';
 import productsModel from '../dao/models/products.models.js';
 
-const pathproductos = path.join(__dirname, '../src/data/products.json');
-const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
+// const pathproductos = path.join(__dirname, '../src/data/products.json');
+// const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
 const socket = io();
 
-function generateId() {
-    let allProducts = dataproductos;
-    let lastProduct = allProducts.pop();
-    if (lastProduct) {
-        return lastProduct.id + 1;
-    }
-    return 1;
-} 
+// function generateId() {
+//     let allProducts = dataproductos;
+//     let lastProduct = allProducts.pop();
+//     if (lastProduct) {
+//         return lastProduct.id + 1;
+//     }
+//     return 1;
+// } 
 
 const productController = {
 
@@ -83,37 +83,42 @@ const productController = {
           res.status(500).send("No se puede agregar el producto: " + error);
         }
       },
-    edit: (req, res) => {
-        let idProduct = req.params.pid;
-        let findProduct = dataproductos.find((e) => {
-            return e.id == idProduct;
-        });
-        res.render("editProduct", {
-            titulo: "Editar Producto",
-            product: findProduct,
-        });
+    edit: async(req, res) => {
+        try{
+            const id = req.params.pid
+            const findProduct = await productsModel.findOne({ _id: id }).lean().exec()
+            res.render("editProduct", {
+                    titulo: "Editar Producto",
+                    product: findProduct,
+            })
+        }catch(error){
+            res.status(500).send("No se encuentra el producto: " + error);
+        }
+   
     },
 
-    edited: (req, res) => {
-        let pid = req.params.pid;
-        let editProduct = {
-            id: parseInt(pid),
-            title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            stock: req.body.stock,
-            code: req.body.code,
-            thumbnail: req.file.thumbnail
-        }
-        for (let i = 0; i < dataproductos.length; i++) {
-            if (dataproductos[i].id == editProduct.id) {
-                dataproductos[i] = editProduct;
-                break;
-            }
-        }
-        fs.writeFileSync(pathproductos, JSON.stringify(dataproductos));
-        res.redirect('/products/detail/' + pid);
-    },
+    edited: async(req, res) => {
+        try {
+            
+            const { title, description, price, stock, code, thumbnail } = req.body;
+            const filter = { _id: id };
+            const update = {
+              title: title,
+              description: description,
+              price: price,
+              stock: stock,
+              code: code,
+              thumbnail: thumbnail
+            };
+        
+            
+            const result = await productsModel.updateOne(filter, update);
+            console.log(result)
+          res.redirect('/products/detail/' + pid);
+          } catch (error) {
+            res.status(500).send("Error al editar el producto: " + error);
+          }
+      },
 
     delete: (req, res) => {
         let idProduct = req.params.pid;
