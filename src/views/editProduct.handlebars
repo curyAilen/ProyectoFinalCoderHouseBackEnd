@@ -5,8 +5,8 @@
   {{>header}}
   <div class="container">
     <h2>Editar Producto</h2>
-   <form id="productForm"  action="/products/edit/{{product._id}}"  method="POST" enctype="multipart/form-data">
-  <input type="hidden" name="_method" value="PUT">
+    <form id="productForm" action="/products/edited/{{product._id}}" method="POST" enctype="multipart/form-data">
+      <!--<input type="hidden" name="_method" value="PUT">-->
 
 
       <div class="row">
@@ -49,12 +49,11 @@
       <button type="submit" class="btn btn-primary col-lg-3">Actualizar Producto</button>
     </form>
 
-    <form action="/products/delete/{{ product.id }}" method="post" id="deleteForm">
-      <input type="hidden" name="_method" value="DELETE">
-      <button type="submit" onclick="deleteProduct('{{ product.id }}')" class="btn btn-danger">Eliminar
+    <form action="/products/delete/{{ product._id }}" method="POST" id="deleteForm">
+      <!--<input type="hidden" name="_method" value="DELETE">-->
+      <button type="submit" onclick="deleteProduct('{{ product._id }}')" class="btn btn-danger">Eliminar
         Producto</button>
     </form>
-
 
   </div>
 </body>
@@ -65,16 +64,16 @@
       document.getElementById('deleteForm').submit();
     }
   }
-   document.querySelector('#delete').onclick = (e) => {
-        const id = "{{ product._id }}"
+  /*document.querySelector('#delete').onclick = (e) => {
+       const id = "{{ product._id }}"
 
-        fetch(`/product/${id}`, { method: 'DELETE' })
-            .then(() => {
-                alert('Eliminado con exito')
-                document.location.href = '/product'
-            })
-            .catch(e => {
-                alert('No se pudo eliminar')
-            })
-    }
+       fetch(`/products/${id}`, { method: 'DELETE' })
+           .then(() => {
+               alert('Eliminado con exito')
+               document.location.href = '/product'
+           })
+           .catch(e => {
+               alert('No se pudo eliminar')
+           })
+   }*/
 </script>
