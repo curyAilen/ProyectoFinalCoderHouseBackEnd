@@ -16,7 +16,7 @@ import { Server as SocketIOServer } from 'socket.io';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride('_method'));
+
 
 app.engine('handlebars', handlebars.engine());
 app.set ('views', __dirname+'/views');

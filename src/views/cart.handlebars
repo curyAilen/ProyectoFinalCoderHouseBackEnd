@@ -15,24 +15,24 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each cart}}
+                {{#each cart.products}}
                 <tr>
-                    <td>{{this.product.title}}</td>
+                    <td>{{this.productId.title}}</td>
                     <td>
                         <div class="input-group">
-                            <button type="button" class="btn btn-light" onclick="decrement('{{this.product.id}}')">
+                            <button type="button" class="btn btn-light" onclick="decrement('{{this.productId._id}}')">
                                 <i class="fas fa-minus"></i>
                             </button>
                             <input type="number" name="quantity" value="{{this.quantity}}" min="1"
-                                id="quantityInput-{{this.product.id}}" class="form-control text-center">
-                            <button type="button" class="btn btn-light" onclick="increment('{{this.product.id}}')">
+                                id="quantityInput-{{this.productId._id}}" class="form-control text-center">
+                            <button type="button" class="btn btn-light" onclick="increment('{{this.productId._id}}')">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </td>
-                    <td>${{this.product.price}}</td>
+                    <td>${{this.productId.price}}</td>
                     <td>
-                        <button class="btn btn-danger" onclick="eliminarProducto('{{this.product.id}}')">
+                        <button class="btn btn-danger" onclick="eliminarProducto('{{this.productId._id}}')">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
