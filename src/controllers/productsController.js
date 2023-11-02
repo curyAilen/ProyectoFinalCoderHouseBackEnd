@@ -1,22 +1,8 @@
-// import fs from 'fs';
-// import path from 'path';
 import __dirname from "../utils.js";
 import { io } from "socket.io-client";
 import productsModel from "../dao/models/products.models.js";
 
-// const pathproductos = path.join(__dirname, '../src/data/products.json');
-// const dataproductos = JSON.parse(fs.readFileSync(pathproductos, 'utf-8'));
 const socket = io();
-
-// function generateId() {
-//     let allProducts = dataproductos;
-//     let lastProduct = allProducts.pop();
-//     if (lastProduct) {
-//         return lastProduct.id + 1;
-//     }
-//     return 1;
-// }
-
 const productController = {
   list: async (req, res) => {
     try {
@@ -56,13 +42,11 @@ const productController = {
       res.send({ error: "No se encuentra el producto" });
     }
   },
-
   create: (req, res) => {
     res.render("newProduct", {
       titulo: "Crear producto nuevo",
     });
   },
-
   store: async (req, res) => {
     try {
       const { title, description, price, stock, code, thumbnail } = req.body;
@@ -97,7 +81,6 @@ const productController = {
       res.status(500).send("No se encuentra el producto: " + error);
     }
   },
-
   edited: async (req, res) => {
     //no funciona el PUT
     try {
@@ -120,7 +103,6 @@ const productController = {
       res.status(500).send("Error al editar el producto: " + error);
     }
   },
-
   delete: async (req, res) => {
     const productId = req.params.pid;
     try {
