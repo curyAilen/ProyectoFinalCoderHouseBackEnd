@@ -2,6 +2,10 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
+import session from 'express-session';
+
+
 import cartRoutes from './routes/cartRoutes.js';
 import routerMain from './routes/mainRoutes.js';
 import routerProducts from './routes/productsRoutes.js';
@@ -10,6 +14,18 @@ import MessageModel from './dao/models/messege.model.js';
 const app = express();
 const mongoURL = 'mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority'
 const mongoDBName = 'dosAgujas'
+
+// app.use(session({
+//   store: MongoStore.create({
+//     mongoURL,
+//     mongoDBName,
+//     ttl: 100
+//   }),
+//   secret: 'secret',
+//   resave: true,
+//   saveUninitialized: true
+// }))
+
 
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-const cartsCollection = 'carts';
 const cartSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     products: {
@@ -10,15 +9,16 @@ const cartSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId, 
                 ref: 'products' 
             },
+            quantity: Number,
         },
     ]},
-    quantity: Number,
+   
     totalPrice: Number, 
 });
 cartSchema.pre('findOne', function() {
     this.populate('products.productId')
 })
 
-const cartsModel = mongoose.model(cartsCollection, cartSchema);
+const cartsModel = mongoose.model("carts", cartSchema);
 
 export default cartsModel;
