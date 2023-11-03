@@ -3,9 +3,8 @@ const router = express.Router();
 import mainController from "../controllers/mainController.js";
 
 
-router.get('/', mainController.main);
+router.get('/', mainController.main, mainController.totalQuantity);
 router.get('/perfil', mainController.perfil);
-
 router.get('/login', mainController.getLogin);
 router.get('/register', mainController.getRegister);
 router.post('/login', mainController.login);

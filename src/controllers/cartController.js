@@ -3,6 +3,21 @@ import productsModel from "../dao/models/products.models.js";
 import cartsModel from "../dao/models/carts.model.js";
 
 const cartController = {
+ cart: async(req, res)=>{
+  try{
+    const cart =  await cartsModel.findOne({_id: '6543d89a5809bb6f30617071'});
+    if (!cart) {
+      return res.status(404).json({ error: 'Carrito no encontrado' });
+  }
+  const totalQuantity = cart.products.reduce((total, product) => total + product.quantity, 0);
+console.log(totalQuantity)
+        return ({ totalQuantity });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al calcular la cantidad total' });
+    }  
+
+},
   addToCart: async (req, res) => {
     try {
       const productId = req.params.cid;
