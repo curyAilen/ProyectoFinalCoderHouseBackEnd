@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import __dirname from '../utils.js';
 import productsModel from '../dao/models/products.models.js';
+import userModel from '../dao/models/users.models.js';
 import messageModel from '../dao/models/messege.model.js'
 
 
@@ -25,8 +24,33 @@ const mainController = {
             console.error(error);
             res.status(500).send('Error al guardar el mensaje');
         }
-      }
-    
+      },
+      getLogin:(req, res)=>{
+        res.render('login')
+      },
+      getRegister: (req, res)=>{
+        res.render('register')
+      },
+      login: async(req, res)=>{
+       const {email, password} =req.body;
+       const user = await userModel.findeOne({email, password})
+       if(!user){  res.redirect('/login')        }
+       req.session.user=user
+       res.redirect('/perfil')
+      },
+      register: async(req, res)=>{
+        const user =req.body
+        await userModel.create(urer)
+        res.redirect('/login')
+      },
+      perfil: async(req, res)=>{
+      //   if(req.session?.user){
+      //     return res.redirect('/perfil')
+      //  }else{
+      //     return res.redirect('/login')
+      //  }
+        res.render('perfil')
+      },
 }
 
 export default mainController;
