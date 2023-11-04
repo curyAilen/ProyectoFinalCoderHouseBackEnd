@@ -7,7 +7,7 @@ import MongoStore from 'connect-mongo';
 
 import cartRoutes from './routes/cartRoutes.js';
 import routerMain from './routes/mainRoutes.js';
-import routerUser from './routes/session.router.js';
+import routerUser from './routes/userRouters.js';
 import routerProducts from './routes/productsRoutes.js';
 import MessageModel from './dao/models/messege.model.js';
 

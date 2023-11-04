@@ -24,10 +24,18 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="text-center">Register</h2>
-                        <form>
+                        <form action="/user/register" method="POST">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Choose a username">
+                                <label for="first_name">First name</label>
+                                <input type="text" class="form-control" id="first_name" placeholder="Choose a first_name">
+                            </div>
+                             <div class="form-group">
+                                <label for="Last Name">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" placeholder="Choose a Last Name">
+                            </div>
+                              <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" class="form-control" id="age" placeholder="Choose a age">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
