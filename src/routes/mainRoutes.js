@@ -4,10 +4,6 @@ import mainController from "../controllers/mainController.js";
 
 
 router.get('/', mainController.main);
-
-
-
-
 router.get('/chat', (req, res) => {
     res.render('chat');
 });

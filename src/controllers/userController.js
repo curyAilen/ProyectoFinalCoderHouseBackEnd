@@ -4,7 +4,7 @@ import userModel from '../dao/models/users.models.js';
 
 
 const userController = {
-getLogin:(req, res)=>{
+  getLogin:(req, res)=>{
     res.render('login')
   },
   getRegister: (req, res)=>{
@@ -32,21 +32,11 @@ getLogin:(req, res)=>{
   login: async(req, res)=>{
     try {
       const { email, password } = req.body;
-      const user = await userModel.findOne({ email });
-      if (!user) {
-          return res.status(401).json({ error: 'Usuario no encontrado' });
-      }
-      const isPasswordValid = await userModel.findOne({ password });
-      if (!isPasswordValid) {
-          return res.status(401).json({ error: 'Contraseña incorrecta' });
-      }
-      req.session.user = {
-          _id: user._id,
-          email: user.email,
-          rol: user.rol
-      };
-
+      const user = await userModel.findOne({ email, password });
+      if (!user) return res.redirect('/login');
+      req.session.user = user;
       res.redirect('/products')
+
   } catch (error) {
       console.error('Error al iniciar sesión:', error);
       res.status(500).json({ error: 'Error al iniciar sesión' });
@@ -58,15 +48,25 @@ getLogin:(req, res)=>{
     res.redirect('/user/login')
   },
 
-  perfil: async(req, res)=>{
-  //   if(req.session?.user){
-  //     return res.redirect('/perfil')
-  //  }else{
-  //     return res.redirect('/login')
-  //  }
-    res.render('perfil')
+  dashboard: async(req, res)=>{
+    try{
+      if(req.session.user){
+        return res.render('dashboard')
+    }
+      return res.redirect('/user/login')
+    
+    }catch(error){
+      res.status(500).json({ error: 'Error al ingresar al dashboard' });
+    } 
   },
+  logout: (req,res)=>{
+    req.session.destroy(err => {
+      if(err) return res.send('Logout error')
 
+      res.redirect('/')
+  })
+},
 }
+
 
 export default userController;

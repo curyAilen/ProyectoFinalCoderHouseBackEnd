@@ -28,10 +28,13 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(session({
   store: MongoStore.create({
-    mongoUrl,
-    dbName: mongoDBName, 
-    ttl: 100
-  }), secret: 'secret', resave: true, saveUninitialized: true
+      mongoUrl,
+      dbName: mongoDBName,
+      ttl: 100
+  }),
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
 }))
 
 app.use('/', routerMain);
