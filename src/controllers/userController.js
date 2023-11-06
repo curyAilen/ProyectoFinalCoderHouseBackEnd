@@ -35,7 +35,7 @@ const userController = {
       const user = await userModel.findOne({ email, password });
       if (!user) return res.redirect('/login');
       req.session.user = user;
-      res.redirect('/products')
+      res.redirect('/')
 
   } catch (error) {
       console.error('Error al iniciar sesión:', error);
