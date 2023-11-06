@@ -30,21 +30,31 @@ getLogin:(req, res)=>{
   
   },
   login: async(req, res)=>{
-    try{
-      const {email, password} =req.body;
-      const user = await userModel.findeOne({email, password})
-      if(!user){  res.redirect('/user/login')}
-      req.session.user=user
-              res.redirect('/user/perfil')
+    try {
+      const { email, password } = req.body;
+      const user = await userModel.findOne({ email });
+      if (!user) {
+          return res.status(401).json({ error: 'Usuario no encontrado' });
+      }
+      const isPasswordValid = await userModel.findOne({ password });
+      if (!isPasswordValid) {
+          return res.status(401).json({ error: 'Contraseña incorrecta' });
+      }
+      req.session.user = {
+          _id: user._id,
+          email: user.email,
+          rol: user.rol
+      };
 
-    }catch(error){
-      return res.status(500).json({ error: 'Error al calcular la cantidad total' });
-    }
-  
+      res.redirect('/products')
+  } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      res.status(500).json({ error: 'Error al iniciar sesión' });
+  }
   },
   register: async(req, res)=>{
-    const {first_name, last_name, age, email, password} = req.body
-    await userModel.create({first_name, last_name, age, email, password})
+    const {first_name, last_name, age, email, password, rol} = req.body
+    await userModel.create({first_name, last_name, age, email, password, rol})
     res.redirect('/user/login')
   },
 

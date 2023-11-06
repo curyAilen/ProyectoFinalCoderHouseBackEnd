@@ -27,24 +27,25 @@
                         <form action="/user/register" method="POST">
                             <div class="form-group">
                                 <label for="first_name">First name</label>
-                                <input type="text" class="form-control" id="first_name" placeholder="Choose a first_name">
+                                <input type="text" class="form-control" id="first_name" placeholder="Choose a first_name" name="first_name">
                             </div>
                              <div class="form-group">
                                 <label for="Last Name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" placeholder="Choose a Last Name">
+                                <input type="text" class="form-control" id="last_name" placeholder="Choose a Last Name" name="last_name">
                             </div>
                               <div class="form-group">
                                 <label for="age">Age</label>
-                                <input type="text" class="form-control" id="age" placeholder="Choose a age">
+                                <input type="text" class="form-control" id="age" placeholder="Choose a age" name="age">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Create a password">
+                                <input type="password" class="form-control" id="password" placeholder="Create a password" name="password">
                             </div>
                             <div class="form-group">
                                 <label for="email">email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Create a email">
+                                <input type="email" class="form-control" id="email" placeholder="Create a email" name="email">
                             </div>
+                             <input type="rol" class="d-none" id="rol"  name="rol" value="user">
                             <button type="submit" class="btn btn-block">Register</button>
                         </form>
                     </div>

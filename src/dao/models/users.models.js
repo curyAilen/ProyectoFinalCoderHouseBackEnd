@@ -7,7 +7,8 @@ const UserModel = mongoose.model('users', new mongoose.Schema({
    unique: true 
 },
   age: Number,
-  password: String
+  password: String,
+  rol: String
 }))
 
 export default UserModel
