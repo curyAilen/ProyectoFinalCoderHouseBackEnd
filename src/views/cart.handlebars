@@ -32,8 +32,8 @@
                     </td>
                     <td>${{this.productId.price}}</td>
                     <td>
-                        <form action="/cart/remove/{{this.productId._id}}" method="POST" id="deleteForm">
-                            <!--<input type="hidden" name="_method" value="DELETE">-->
+                        <form action="/cart/remove/{{this.productId._id}}" method="post" id="deleteForm" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger" onclick="deleteProduct('{{this.productId._id}}')">
                                 <i class="fas fa-trash"></i>
                             </button>

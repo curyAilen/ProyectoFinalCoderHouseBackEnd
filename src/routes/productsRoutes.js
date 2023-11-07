@@ -19,9 +19,8 @@ const router = Router()
 // router.get('/create', productController.create);
 router.post('/create', upload.single('thumbnail'), productController.store);
 router.get('/edit/:pid', productController.edit);
-//router.put('/edited/:pid', upload.single('thumbnail'), productController.edited);
-router.post('/edited/:pid', upload.single('thumbnail'), productController.edited);
-//router.delete('/delete/:pid', productController.delete);
-router.post('/delete/:pid', productController.delete);
+router.put('/edited/:pid', upload.single('thumbnail'), productController.edited);
+router.delete('/delete/:pid', productController.delete);
+
 
 export default router;

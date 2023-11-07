@@ -1,16 +1,18 @@
 <title>{{ title }}</title>
 </head>
-<body class="container-fluid">
+<body >
+    <div class="container-flui">
     {{>header}}
+       </div>
+    <div class="container">
      <div class="row">
-        <h3 class="col-12 text-center">Total Products: {{ pagination.totalDocs }}</h3>
-        <br>
+         <p class=" col-3">pages:{{ pagination.totalPages }}</p>
         {{#if pagination.hasPrevPage}}
-            <a href="{{ pagination.prevLink }}" class="btn">Previous</a>
+            <a href="{{ pagination.prevLink }}" class="btn col-3 btn-primary mx-3">Previous</a>
         {{/if}}
-        -
+        
         {{#if pagination.hasNextPage}}
-            <a href="{{ pagination.nextLink }}" class="btn">Next</a>
+            <a href="{{ pagination.nextLink }}" class="btn col-3 btn-primary mx-3">Next</a>
         {{/if}}
     </div>
     <div class="row">
@@ -20,13 +22,16 @@
                 <div class="card">
                     <img src="/img/{{this.thumbnail}}" alt="Imagen del producto" class="card-img-top">
                     <div class="card-body">
-                        <h4 class="card-title">{{ this.title }}</h4>
-                        <p class="card-text">Disponibilidad: {{ this.stock }}</p>
+                        <h4 class="card-title">{{ title }}</h4>
+                        <p class="card-text">Description: {{ this.description }}</p>
+                        <p class="card-text">Stock: {{ this.stock }}</p>
                         <p class="card-text">Price: ${{ this.price }}</p>
+                        <p class="card-text">Category: {{ this.categoria }}</p>
                     </div>
                     <a class="nav-link btn btn-primary" href="/api/products/detail/{{ this._id }}">detalle</a>
                 </div>
             </div>
         {{/each}}
     </div>
+        </div>
      

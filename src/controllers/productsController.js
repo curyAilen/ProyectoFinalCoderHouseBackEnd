@@ -4,25 +4,53 @@ import productsModel from "../dao/models/products.models.js";
 
 const socket = io();
 const productController = {
-  list: async (req, res) => {
+    list: async (req, res) => {
     try {
+     
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;
+      const sort = req.query.sort || '';
+      const query = req.query.query || '';
+      const category = req.query.categoria || '';
+      const stock = req.query.stock || '';
 
       const options = {
         page,
         limit,
+        sort,
         lean: true,
       };
+      const filters = {};
+      if (query) {
+        filters.$or = [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } },
+        ];
+      }
 
-      const result = await productsModel.paginate({}, options);
+      if (category) {
+        filters.category = category;
+      }
+
+      if (stock) {
+        filters.stock = stock === 'stock' ? { $gt: 0 } : 0;
+      }
+     
+
+      const result = await productsModel.paginate(filters, options);
 
       const pagination = {
+        status: 'success',
+        payload: result.docs,
         totalPages: result.totalPages,
         prevPage: result.hasPrevPage ? page - 1 : null,
         nextPage: result.hasNextPage ? page + 1 : null,
+        page,
         hasPrevPage: result.hasPrevPage,
         hasNextPage: result.hasNextPage,
+        prevLink: result.hasPrevPage ? `/api/products?page=${page - 1}&limit=${limit}` : null,
+        nextLink: result.hasNextPage ? `/api/products?page=${page + 1}&limit=${limit}` : null,
+
       };
 
       res.render("realtimeproducts", {
@@ -82,23 +110,22 @@ const productController = {
     }
   },
   edited: async (req, res) => {
-    //no funciona el PUT
     try {
       const id = req.params.pid;
-      const pid = await productsModel.findOne({ _id: id }).lean().exec();
-      const { title, description, price, stock, code, thumbnail } = req.body;
-      const filter = { _id: pid };
-      const update = {
-        title: title,
-        description: description,
-        price: price,
-        stock: stock,
-        code: code,
-        thumbnail: thumbnail,
-      };
-      const result = await productsModel.updateOne(filter, update);
+      const pid = await productsModel.findOne({ _id: id });
+      const {title, price, stock, description, code, } = req.body;
+      let thumbnail;
+      if (req.file) {
+        thumbnail = req.file.filename;
+      }
+      const dataUpdate = {title, price, stock, description, code, };
+      if (thumbnail) {
+        dataUpdate.thumbnail = thumbnail;
+      }
 
-      res.redirect("/api/products/detail/" + pid._id);
+      console.log(dataUpdate.thumbnail);
+      await productsModel.updateOne(pid, dataUpdate);
+      res.redirect("/api/products/detail/" + id);
     } catch (error) {
       res.status(500).send("Error al editar el producto: " + error);
     }
@@ -106,14 +133,17 @@ const productController = {
   delete: async (req, res) => {
     const productId = req.params.pid;
     try {
-      const product = await productsModel.findOne({ _id: productId }).lean().exec();
+      const product = await productsModel
+        .findOne({ _id: productId })
+        .lean()
+        .exec();
 
       if (!product) {
         return res.status(404).json({ error: "Producto no encontrado" });
-      }else{
-       await productsModel.deleteOne({_id:productId})
-     res.redirect('/api/products')
-      }    
+      } else {
+        await productsModel.deleteOne({ _id: productId });
+        res.redirect("/api/products");
+      }
     } catch (error) {
       console.error("Error al eliminar el producto:", error);
       res.status(500).json({ error: "Error al eliminar el producto" });

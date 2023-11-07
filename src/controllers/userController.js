@@ -1,5 +1,5 @@
 import __dirname from '../utils.js';
-import productsModel from '../dao/models/products.models.js';
+//import productsModel from '../dao/models/products.models.js';
 import userModel from '../dao/models/users.models.js';
 
 
