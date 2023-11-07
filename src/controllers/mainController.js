@@ -8,8 +8,9 @@ import messageModel from '../dao/models/messege.model.js'
 const mainController = {
     main: async(req, res)=>{
       const totalQuantity = 0;
-      
-        res.render('home', {totalQuantity})
+      const user = req.session.user
+      console.log(user)      
+        res.render('home', {totalQuantity, user})
       },
       chat: async (req, res) => {
         const user = req.body.user;

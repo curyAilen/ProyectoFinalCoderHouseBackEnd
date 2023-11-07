@@ -47,7 +47,6 @@ const userController = {
     await userModel.create({first_name, last_name, age, email, password, rol})
     res.redirect('/user/login')
   },
-
   dashboard: async(req, res)=>{
     try{
       if(req.session.user){
