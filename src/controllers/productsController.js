@@ -23,8 +23,7 @@ const productController = {
       const filters = {};
       if (query) {
         filters.$or = [
-          { title: { $regex: query, $options: 'i' } },
-          { description: { $regex: query, $options: 'i' } },
+          { title: { $regex: query, $options: 'i' } },        
         ];
       }
 
