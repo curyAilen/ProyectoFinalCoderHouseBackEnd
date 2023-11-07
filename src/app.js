@@ -8,6 +8,7 @@ import MongoStore from 'connect-mongo';
 import cartRoutes from './routes/cartRoutes.js';
 import routerMain from './routes/mainRoutes.js';
 import routerUser from './routes/userRouters.js';
+import routerViews from './routes/viewsRoutes.js';
 import routerProducts from './routes/productsRoutes.js';
 import MessageModel from './dao/models/messege.model.js';
 
@@ -38,9 +39,10 @@ app.use(session({
 }))
 
 app.use('/', routerMain);
-app.use('/cart', cartRoutes);
-app.use('/products', routerProducts);
-app.use('/user', routerUser);
+app.use('/api/cart', cartRoutes);
+app.use('/api/products', routerProducts);
+app.use('/api/user', routerUser);
+app.use('/api', routerViews);
 
 
 mongoose.connect(mongoUrl, { dbName: mongoDBName })

@@ -61,7 +61,7 @@ const productController = {
       });
 
       console.log("Producto guardado:", newProduct);
-      res.redirect("/products/detail/" + newProduct._id);
+      res.redirect("/api/products/detail/" + newProduct._id);
     } catch (error) {
       res.status(500).send("No se puede agregar el producto: " + error);
     }
@@ -98,7 +98,7 @@ const productController = {
       };
       const result = await productsModel.updateOne(filter, update);
 
-      res.redirect("/products/detail/" + pid._id);
+      res.redirect("/api/products/detail/" + pid._id);
     } catch (error) {
       res.status(500).send("Error al editar el producto: " + error);
     }
@@ -112,7 +112,7 @@ const productController = {
         return res.status(404).json({ error: "Producto no encontrado" });
       }else{
        await productsModel.deleteOne({_id:productId})
-     res.redirect('/products')
+     res.redirect('/api/products')
       }    
     } catch (error) {
       console.error("Error al eliminar el producto:", error);

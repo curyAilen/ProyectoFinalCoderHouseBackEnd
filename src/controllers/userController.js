@@ -33,7 +33,7 @@ const userController = {
     try {
       const { email, password } = req.body;
       const user = await userModel.findOne({ email, password });
-      if (!user) return res.redirect('/login');
+      if (!user) return res.redirect('/api/user/login');
       req.session.user = user;
       res.redirect('/')
 
@@ -45,14 +45,14 @@ const userController = {
   register: async(req, res)=>{
     const {first_name, last_name, age, email, password, rol} = req.body
     await userModel.create({first_name, last_name, age, email, password, rol})
-    res.redirect('/user/login')
+    res.redirect('/api/user/login')
   },
   dashboard: async(req, res)=>{
     try{
       if(req.session.user){
         return res.render('dashboard')
     }
-      return res.redirect('/user/login')
+      return res.redirect('/api/user/login')
     
     }catch(error){
       res.status(500).json({ error: 'Error al ingresar al dashboard' });

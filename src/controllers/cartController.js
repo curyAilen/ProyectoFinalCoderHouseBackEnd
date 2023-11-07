@@ -36,7 +36,7 @@ console.log(totalQuantity)
      cart.products.push(newProductInCart);
     cart.totalPrice += totalPrice;
     await cart.save();  
-    res.redirect(302, '/cart/getCart/')
+    res.redirect(302, '/api/cart/getCart/')
     }catch(error){
       res.status(500).json({
       error: "Error al agregar el producto al carrito: " + error.message,
@@ -60,7 +60,7 @@ console.log(totalQuantity)
       if (!updatedCart) {
         return res.status(404).json({ error: "Carrito no encontrado" });
       }
-        res.redirect('/cart/getCart')
+        res.redirect('/api/cart/getCart')
    
     } catch (error) {
       console.error("Error al eliminar el producto:", error);

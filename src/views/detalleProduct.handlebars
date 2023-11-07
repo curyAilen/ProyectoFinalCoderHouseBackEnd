@@ -13,8 +13,8 @@
                     <p class="card-text">Price: ${{ product.price }}</p>
                 </div>
                 <div class="d-flex justify-content-between ">
-                    <a href="/products/edit/{{ product._id }}" class="btn btn-primary col-4">Editar Producto</a>
-                    <form action="/cart/add/{{ product._id }}" method="post" class="row">
+                    <a href="/api/products/edit/{{ product._id }}" class="btn btn-primary col-4">Editar Producto</a>
+                    <form action="/api/cart/add/{{ product._id }}" method="post" class="row">
                         <div class="input-group col-5 mx-3">
                             <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>                          
                             <input id="quantity" type="number" class="form-control text-center" value="1" name="quantity">                            
