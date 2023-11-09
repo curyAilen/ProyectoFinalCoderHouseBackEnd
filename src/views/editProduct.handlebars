@@ -64,4 +64,29 @@
       document.getElementById('deleteForm').submit();
     }
   }
+  document.getElementById('productForm').addEventListener('submit', function(event)){
+    event.preventDefault();
+    
+    let formData = new FormData(document.querySelector('#productForm'));
+    const formData = new FormData(this)
+    const productId = "{{product._id}}"
+    fetch(`/api/products/${productId}`,{
+      method:'PUT',
+      body: formData
+      })
+      .then(response=>{
+        if(response.ok){
+          window.location.href = `/api/products/detail/${productId}`
+          }else{
+          throw new error ("Error al actualizar")
+        }
+      })
+      .catch((error)=>{
+      console.log("Error:", error)
+      })
+    }
+    
+  
+
+
 </script>

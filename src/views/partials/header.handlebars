@@ -24,10 +24,17 @@
         <h3>Hola {{user.first_name}}</h3>
          
         <ul class="navbar-nav">
+            {{#if user}}
             <li class="nav-item d-flex">
-                <a class="nav-link" href="/api/cart/getCart/" id="total-quantity"><i
+                <a class="nav-link" href="/api/cart/getCart/{{cart._id }}" id="total-quantity"><i
                         class="fas fa-shopping-bag mx-1"></i></a>{{totalQuantity}}
             </li>
+            {{else}}
+             <li class="nav-item d-flex">
+                <a class="nav-link" href="/api/user/login" id="total-quantity"><i
+                        class="fas fa-shopping-bag mx-1"></i></a>{{totalQuantity}}
+            </li>
+            {{/if}}
             <li class="nav-item">
                 <a class="nav-link" href="/chat"><i class="fas fa-comment mx-1"></i>Chat</a>
             </li>

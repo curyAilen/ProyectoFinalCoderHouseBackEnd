@@ -9,7 +9,11 @@ const mainController = {
     main: async(req, res)=>{
       const totalQuantity = 0;
       const user = req.session.user
-      console.log(user)      
+      if(!user){
+        console.log("No hay usuario logueado")              
+      }else{
+        console.log(user)
+      }
         res.render('home', {totalQuantity, user})
       },
       chat: async (req, res) => {

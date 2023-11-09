@@ -22,5 +22,5 @@ router.get('/products/detail/:pid',  productController.detailProduct);
 router.get('/products/create',  productController.create);
 
 //CART
-router.get('/cart/getCart', cartController.getCart);
+router.get('/cart/getCart/:cid', cartController.getCart);
 export default router;

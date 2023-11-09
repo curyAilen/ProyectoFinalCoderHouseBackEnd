@@ -1,8 +1,7 @@
 import __dirname from "../utils.js";
-import { io } from "socket.io-client";
 import productsModel from "../dao/models/products.models.js";
 
-const socket = io();
+
 const productController = {
     list: async (req, res) => {
     try {
@@ -112,7 +111,7 @@ const productController = {
     try {
       const id = req.params.pid;
       const pid = await productsModel.findOne({ _id: id });
-      const {title, price, stock, description, code, } = req.body;
+      const {title, price, stock, description, code } = req.body;
       let thumbnail;
       if (req.file) {
         thumbnail = req.file.filename;
@@ -121,7 +120,6 @@ const productController = {
       if (thumbnail) {
         dataUpdate.thumbnail = thumbnail;
       }
-
       console.log(dataUpdate.thumbnail);
       await productsModel.updateOne(pid, dataUpdate);
       res.redirect("/api/products/detail/" + id);

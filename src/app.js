@@ -47,6 +47,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
+
 app.use('/', routerMain);
 app.use('/api/cart', cartRoutes);
 app.use('/api/products', routerProducts);

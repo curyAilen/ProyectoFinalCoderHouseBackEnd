@@ -44,6 +44,7 @@ const userController = {
   },
   register: async(req, res)=>{
     const {first_name, last_name, age, email, password, rol} = req.body
+   
     await userModel.create({first_name, last_name, age, email, password, rol})
     res.redirect('/api/user/login')
   },
