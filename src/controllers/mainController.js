@@ -1,12 +1,14 @@
 import {__dirname} from '../utils.js';
 import productsModel from '../dao/models/products.models.js';
-import userModel from '../dao/models/users.models.js';
+//import userModel from '../dao/models/users.models.js';
 import messageModel from '../dao/models/messege.model.js'
 
 
 
 const mainController = {
     main: async(req, res)=>{
+      const eigthProducts = 8;
+      const products = await productsModel.find({}).sort({ createdAt: -1 }).limit(eigthProducts).lean().exec()
       const totalQuantity = 0;
       const user = req.session.user
       if(!user){
@@ -14,7 +16,7 @@ const mainController = {
       }else{
         console.log(user)
       }
-        res.render('home', {totalQuantity, user})
+        res.render('home', { totalQuantity, user, products })
       },
       chat: async (req, res) => {
         const user = req.body.user;

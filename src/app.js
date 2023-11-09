@@ -21,10 +21,20 @@ import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 
 app.engine('handlebars', handlebars.engine());
-app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+const hbs = handlebars.create({
+  helpers: {
+    eq: function (a, b, options) {
+      return a === b ? options.fn(this) : options.inverse(this);
+    },
+  },
+});
+app.engine('handlebars', hbs.engine);
+
+app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/partials/'))
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 

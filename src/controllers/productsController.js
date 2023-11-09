@@ -4,8 +4,7 @@ import productsModel from "../dao/models/products.models.js";
 
 const productController = {
     list: async (req, res) => {
-    try {
-     
+    try {     
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;
       const sort = req.query.sort || '';

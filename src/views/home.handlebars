@@ -3,18 +3,59 @@
 </head>
 <body class="container-fluid">
     {{>header}}
-    <div class="row">
-
-        {{#each products}}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="/img/{{ this.thumbnail }}" alt="Imagen del producto" class="card-img-top">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ this.title }}</h4>
-                        <p class="card-text">Disponibilidad: {{ this.stock }}</p>
-                        <p class="card-text">Price: ${{ this.price }}</p>
-                    </div>
-                </div>
-            </div>
-        {{/each}}
+    <div class="container mt-5 mb-5">
+  <h2 class="text-center">Últimos Productos</h2>
+ <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 500px; overflow: hidden;">
+  <div class="carousel-inner">
+    {{#each products}}
+    <div class="carousel-item {{#if @first}}active{{/if}}">
+    <a href="/api/products/detail/{{ this._id }}">
+      <img src="/img/{{ this.thumbnail }}" class="d-block w-100" alt="{{this.title}}" style="object-fit: cover; height: 100%;">
+      <div class="carousel-caption  d-md-block">
+        <h5>{{ this.title }}</h5>
+        <p>${{ this.price }}</p>
+      </div>
+      </a>
     </div>
+    {{/each}}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="background-color: #343a40;">
+    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="background-color: #343a40;">
+    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Todos los Medios de Pago</h5>
+          <p class="card-text">Aceptamos diferentes formas de pago para tu comodidad.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Envíos a Todo el País</h5>
+          <p class="card-text">Realizamos envíos a cualquier parte del país.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Hasta 3, 6, 12 Cuotas Sin Interés</h5>
+          <p class="card-text">Ofrecemos opciones de financiamiento sin intereses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
