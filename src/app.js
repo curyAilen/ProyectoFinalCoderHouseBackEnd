@@ -1,6 +1,6 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
-import __dirname from './utils.js';
+import {__dirname, setUserSession} from './utils.js';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -47,6 +47,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
+app.use(setUserSession)
 
 app.use('/', routerMain);
 app.use('/api/cart', cartRoutes);
