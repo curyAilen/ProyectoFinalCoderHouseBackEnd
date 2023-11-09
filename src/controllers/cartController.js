@@ -7,37 +7,26 @@ const cartController = {
     try {
       const productId = req.params.pid;
       const product = await productsModel.findOne({ _id: productId }).lean().exec();
-      const cartId = req.params.cid;
-    
-      const cart = await cartsModel.findOne({ _id: cartId }).lean().exec();
-    
+      const cartId = req.params.cid;    
+      const cart = await cartsModel.findOne({ _id: cartId }).lean().exec();    
       if (!cart) {
         return res.status(404).json({ error: "Carrito no encontrado" });
-      }
-    
+      }    
       if (!cart.products) {
         cart.products = [];
-      }
-    
+      }    
       const totalQuantity = req.body.quantity;
       const totalPrice = product.price * totalQuantity;
-    
       const newProductInCart = {
         productId: product._id,
         quantity: totalQuantity,
-      };
-    
+      };    
       cart.products.push(newProductInCart);
-    
       if (!cart.totalPrice) {
         cart.totalPrice = 0;
-      }
-    
+      }    
       cart.totalPrice += totalPrice;
-    
-      // Guardar los cambios en el carrito
       await cartsModel.updateOne({ _id: cartId }, cart);
-    
       res.redirect(302, '/api/cart/getCart/' + cartId);
     } catch (error) {
       res.status(500).json({

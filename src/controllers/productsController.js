@@ -75,7 +75,7 @@ const productController = {
   },
   store: async (req, res) => {
     try {
-      const { title, description, price, stock, code, thumbnail } = req.body;
+      const { title, description, price, stock, code, thumbnail, category } = req.body;
       const ext = req.file.originalname.split(".").pop();
       const newProduct = await productsModel.create({
         title: title,
@@ -83,6 +83,7 @@ const productController = {
         price: price,
         stock: stock,
         code: code,
+        category: category,
         thumbnail: thumbnail + "." + ext,
       });
 
@@ -111,12 +112,12 @@ const productController = {
     try {
       const id = req.params.pid;
       const pid = await productsModel.findOne({ _id: id });
-      const {title, price, stock, description, code } = req.body;
+      const {title, price, stock, description, code, category } = req.body;
       let thumbnail;
       if (req.file) {
         thumbnail = req.file.filename;
       }
-      const dataUpdate = {title, price, stock, description, code, };
+      const dataUpdate = {title, price, stock, description, code, category };
       if (thumbnail) {
         dataUpdate.thumbnail = thumbnail;
       }

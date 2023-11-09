@@ -15,6 +15,11 @@
           <input type="text" class="form-control" id="title" name="title" placeholder="Ingrese el título"
             value="{{ product.title }}" >
         </div>
+          <div class="form-group col-lg-6">
+        <label for="category">category:</label>
+        <input type="text" class="form-control" name="category" placeholder="Ingrese el category" required value="{{ product.category }}">
+      </div>
+
 
         <div class="form-group col-lg-6">
           <label for="price">Precio:</label>

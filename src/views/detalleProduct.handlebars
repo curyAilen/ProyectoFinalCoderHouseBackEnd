@@ -9,7 +9,9 @@
                 <img src="/img/{{ product.thumbnail }}" alt="Imagen del producto" class="card-img-top">
                 <div class="card-body">
                     <h4 class="card-title">Title: {{ product.title }}</h4>
-                    <p class="card-text">Disponibilidad: {{ product.stock }}</p>
+                    <h4 class="card-text">Category: {{ product.category }}</h4>
+                    <p class="card-text">Stock: {{ product.stock }}</p>
+                    <p class="card-text">Description: {{ product.description }}</p>
                     <p class="card-text">Price: ${{ product.price }}</p>
                 </div>
                 <div class="d-flex justify-content-between ">
