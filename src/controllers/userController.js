@@ -1,6 +1,7 @@
-import {__dirname} from '../utils.js';
+import {__dirname, hashPassword } from '../utils.js';
 //import productsModel from '../dao/models/products.models.js';
 import userModel from '../dao/models/users.models.js';
+import bcrypt from 'bcrypt';
 
 
 const userController = {
@@ -32,21 +33,47 @@ const userController = {
   login: async(req, res)=>{
     try {
       const { email, password } = req.body;
-      const user = await userModel.findOne({ email, password });
-      if (!user) return res.redirect('/api/user/login');
+      const user = await userModel.findOne({ email });
+  
+      if (!user) {
+        res.redirect('/api/user/login');
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+  
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Contraseña incorrecta' });
+      }
       req.session.user = user;
-      res.redirect('/')
-
-  } catch (error) {
+      res.redirect('/');
+    } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      res.status(500).json({ error: 'Error al iniciar sesión' });
-  }
+      res.status(500).json({ error: 'Error al iniciar sesión' + error});
+    }
   },
   register: async(req, res)=>{
-    const {first_name, last_name, age, email, password, rol} = req.body
-   
-    await userModel.create({first_name, last_name, age, email, password, rol})
+    try{
+    const { first_name, last_name, age, email, password, rol} = req.body;
+    const existUser = await userModel.findOne({ email });
+    if (existUser) {
+      return res.status(400).json({ message: 'El usuario ya existe' });
+    }
+    const hashedPassword = await hashPassword(password);
+
+   await userModel.create({
+      first_name, 
+      last_name, 
+      age,
+      email,
+      password: hashedPassword,
+      rol
+    });
+
     res.redirect('/api/user/login')
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error en el servidor' + error});
+  }
   },
   dashboard: async(req, res)=>{
     try{
