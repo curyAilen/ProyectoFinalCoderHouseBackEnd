@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import methodOverride from 'method-override';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 import cartRoutes from './routes/cartRoutes.js';
 import routerMain from './routes/mainRoutes.js';
@@ -22,14 +24,7 @@ import { Server as SocketIOServer } from 'socket.io';
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
-const hbs = handlebars.create({
-  helpers: {
-    eq: function (a, b, options) {
-      return a === b ? options.fn(this) : options.inverse(this);
-    },
-  },
-});
-app.engine('handlebars', hbs.engine);
+
 
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
@@ -58,6 +53,10 @@ app.use(session({
 }))
 
 app.use(setUserSession)
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/', routerMain);
 app.use('/api/cart', cartRoutes);

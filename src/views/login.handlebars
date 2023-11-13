@@ -1,44 +1,53 @@
-  <title>{{ title }}</title>
-    <style>
-        body {
-            background-color: #343a40;
-            color: #fff;
-        }
-        .card {
-            background-color: #454d55;
-            border: none;
-        }
-        .btn {
-            background-color: #007bff;
-            color: #fff;
-        }
-    </style>
+<title>{{ title }}</title>
+<style>
+    body {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .card {
+        background-color: #454d55;
+        border: none;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+    }
+</style>
 </head>
 
 <body class="">
-  {{>header}}
+    {{>header}}
+    
 
 
-<body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4 mt-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="text-center">Login</h2>
-                        <form action="/api/user/login" method="POST">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Enter your email" name="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
-                            </div>
-                            <button type="submit" class="btn btn-block">Login</button>
-                        </form>
-                    </div>
+    <body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">Login</h2>
+                    <form action="/api/user/login" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" placeholder="Enter your email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary">Login</button>
+                    </form>
+                    <hr>
+                    <p class="text-center">or</p>
+                    <a href="/api/user/login-github" class="btn btn-block btn-secondary">
+                        <img src="https://img.icons8.com/material-sharp/24/000000/github.png" alt="GitHub" class="mr-2">
+                        Iniciar Sesión con GitHub
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>

@@ -4,6 +4,7 @@ import userModel from '../dao/models/users.models.js';
 import bcrypt from 'bcrypt';
 
 
+
 const userController = {
   getLogin:(req, res)=>{
     res.render('login')
@@ -92,7 +93,7 @@ const userController = {
 
       res.redirect('/')
   })
-},
+}
 }
 
 
