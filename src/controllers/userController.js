@@ -1,5 +1,4 @@
 import {__dirname, hashPassword } from '../utils.js';
-//import productsModel from '../dao/models/products.models.js';
 import userModel from '../dao/models/users.models.js';
 import bcrypt from 'bcrypt';
 

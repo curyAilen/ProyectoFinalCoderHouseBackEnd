@@ -17,13 +17,13 @@ function auth(req, res, next) {
 
 //USER
 router.get('/user/login',  userController.getLogin)
-router.get('/user/dashboard', auth,  userController.dashboard)
+router.get('/user/dashboard', userController.dashboard)
 router.get('/user/logout',  userController.logout)
 
 //PRODUCTS
 router.get('/products',  productController.list);
-router.get('/products/detail/:pid',  authAmdmin, productController.detailProduct);
-router.get('/products/create',  authAmdmin, productController.create);
+router.get('/products/detail/:pid',   productController.detailProduct);
+router.get('/products/create',   productController.create);
 
 //CART
 router.get('/cart/getCart/:cid', cartController.getCart);
