@@ -10,7 +10,9 @@ const cartController = {
       const cartId = req.params.cid;    
       const cart = await cartsModel.findOne({ _id: cartId }).lean().exec();    
       if (!cart) {
-        return res.status(404).json({ error: "Carrito no encontrado" });
+        const titulo = "Lo sentimos";
+        const mensaje= "No se pudo encontrar el carrito."
+        res.render('error', {titulo, mensaje})
       }    
       if (!cart.products) {
         cart.products = [];
@@ -29,6 +31,9 @@ const cartController = {
       await cartsModel.updateOne({ _id: cartId }, cart);
       res.redirect(302, '/api/cart/getCart/' + cartId);
     } catch (error) {
+      const titulo = "Lo sentimos";
+        const mensaje= "No se pudo encontrar el carrito."
+        res.render('error', {titulo, mensaje})
       res.status(500).json({
         error: "Error al agregar el producto al carrito: " + error.message,
       });
@@ -42,7 +47,9 @@ const cartController = {
       const cart =  await cartsModel.findOne({_id: cartId}).lean().exec();
       
       if(!product){
-        return res.status(404).json({error: "Producto no encontrado"});
+        const titulo = "Lo sentimos, ha ocurrido un error.";
+        const mensaje= "No hemos podido encontrar el producto solicitado."
+        res.render('error', {titulo, mensaje})
       }     
 
       const updatedCart = await cartsModel.findOneAndUpdate(

@@ -1,0 +1,20 @@
+ <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h1 class="display-4">Error</h1>
+                        <p class="lead">{{titulo}}</p>
+                        <p>{{mensaje}}</p>
+                        <a href="/" class="btn btn-primary">Volver al Inicio</a>
+                    </div>
+                </div>
+                {{#if codeErr}}
+                <div class="card">
+                    <h3>Error código:</h3>
+                    <p>{{codeErr}}</p>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>

@@ -3,6 +3,7 @@ const router = express.Router();
 import userController from "../controllers/userController.js";
 import productController from "../controllers/productsController.js";
 import cartController from "../controllers/cartController.js";
+import mainController from "../controllers/mainController.js";
 function auth(req, res, next) {
     if(req.session?.user) next()
   
@@ -28,3 +29,4 @@ router.get('/products/create',   productController.create);
 //CART
 router.get('/cart/getCart/:cid', cartController.getCart);
 export default router;
+

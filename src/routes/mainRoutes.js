@@ -8,4 +8,5 @@ router.get('/chat', (req, res) => {
     res.render('chat');
 });
 router.post('/enviar-mensaje', mainController.chat);
+router.get('/error', mainController.error);
 export default router;

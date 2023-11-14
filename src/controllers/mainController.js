@@ -33,6 +33,11 @@ const mainController = {
             res.status(500).send('Error al guardar el mensaje');
         }
       },
+      error: (req, res)=>{
+        const titulo = "Lo sentimos, ha ocurrido un error.";
+        const mensaje= "Por favor, intenta nuevamente o contacta al soporte."
+        res.render('error', {titulo, mensaje})
+      }
      
       
 }
