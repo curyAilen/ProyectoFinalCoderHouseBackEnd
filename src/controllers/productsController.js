@@ -74,8 +74,16 @@ const productController = {
   },
   store: async (req, res) => {
     try {
-      const { title, description, price, stock, code, thumbnail, category } = req.body;
-      const ext = req.file.originalname.split(".").pop();
+      const { title, description, price, stock, code, category } = req.body;
+     
+      let thumbnail;
+      if (req.file) {
+        thumbnail = req.file.filename;
+      }
+      const product = {title, price, stock, description, code, category };
+      if (thumbnail) {
+        product.thumbnail = thumbnail;
+      }
       const newProduct = await productsModel.create({
         title: title,
         description: description,
@@ -83,7 +91,7 @@ const productController = {
         stock: stock,
         code: code,
         category: category,
-        thumbnail: thumbnail + "." + ext,
+        thumbnail: thumbnail,
       });
 
       console.log("Producto guardado:", newProduct);
@@ -120,7 +128,6 @@ const productController = {
       if (thumbnail) {
         dataUpdate.thumbnail = thumbnail;
       }
-      console.log(dataUpdate.thumbnail);
       await productsModel.updateOne(pid, dataUpdate);
       res.redirect("/api/products/detail/" + id);
     } catch (error) {
