@@ -1,7 +1,7 @@
 import {__dirname, hashPassword } from '../utils.js';
 import userModel from '../dao/models/users.models.js';
 import bcrypt from 'bcrypt';
-
+import { authToken, generateToken } from '../utils.js';
 
 
 const userController = {
@@ -74,6 +74,30 @@ const userController = {
     console.error(error);
     return res.status(500).json({ message: 'Error en el servidor' + error});
   }
+  },
+  loginToken: (req, res)=>{
+    const { email, password} = req.body
+
+    const user = users.find(u => u.email === email && u.password === password)
+    if(!user) return res.status(400).send({status: 'error', error: 'invalid credenntial'})
+
+    const access_token = generateToken(user)
+    // res.redirect('/', {access_token})
+    res.send({status: 'success', access_token})
+  },
+  registerToken: (req, res)=>{
+    const user = req.body
+
+    if(users.find(u => u.email === user.email)) {
+        return res.status(400).send({status: 'error', error: 'User already exits'})
+    }
+
+    users.push(user)
+    const access_token = generateToken(user)
+    // res.redirect('/api/user/login', {access_token})
+    res.send({status: 'success', access_token})
+    
+ 
   },
   dashboard: async(req, res)=>{
     try{

@@ -8,12 +8,15 @@ import methodOverride from 'method-override';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
+
+//IMPORT RUTAS
 import cartRoutes from './routes/cartRoutes.js';
 import routerMain from './routes/mainRoutes.js';
 import routerUser from './routes/userRouters.js';
 import routerViews from './routes/viewsRoutes.js';
 import routerProducts from './routes/productsRoutes.js';
 import MessageModel from './dao/models/messege.model.js';
+
 
 const app = express();
 const mongoUrl = 'mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority'
@@ -50,7 +53,7 @@ app.use(setUserSession)
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.use('/jwt', routerMain)
 
 app.use('/', routerMain);
 app.use('/api/cart', cartRoutes);
