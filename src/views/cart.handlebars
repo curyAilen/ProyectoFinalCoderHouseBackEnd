@@ -49,14 +49,21 @@
             <h4>Total: ${{cart.totalPrice}}</h4>
         </div>
         <button class="btn btn-primary">Realizar Pago</button>
+        <form action="/api/cart/clear/{{cart._id}}" method="post">
+    <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
+</form>
+
+
     </div>
     <script>
         function deleteProduct() {
             const confirmation = confirm('¿Estás seguro de que deseas eliminar este producto?');
             if (confirmation) {
                 document.getElementById('deleteForm').submit();
+         
             }
         }
+        
         function increment(productId) {
             const input = document.getElementById(`quantityInput-${productId}`);
             input.value = parseInt(input.value) + 1;

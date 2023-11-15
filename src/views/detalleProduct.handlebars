@@ -16,6 +16,8 @@
                 </div>
                 <div class="d-flex justify-content-between ">
                     <a href="/api/products/edit/{{ product._id }}" class="btn btn-primary col-4">Editar Producto</a>
+
+
                     <form action="/api/cart/add/654d2d4222d36d4c0843f9e9/products/{{product._id}}" method="post" class="row">
                         <div class="input-group col-5 mx-3">
                             <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>                          
