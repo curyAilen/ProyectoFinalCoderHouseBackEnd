@@ -50,7 +50,7 @@ const cartController = {
         .lean()
         .exec();
       const cartId = req.params.cid;
-      const cart = await cartsModel.findOne({ _id: cartId });
+      // const cart = await cartsModel.findOne({ _id: cartId });
 
       if (!product) {
         const titulo = "Lo sentimos, ha ocurrido un error.";
@@ -67,7 +67,7 @@ const cartController = {
       if (!updatedCart) {
         return res.status(404).json({ error: "Carrito no encontrado" });
       }
-      res.redirect("/api/cart/getCart/" + cart);
+      res.redirect("/api/cart/getCart/" + cartId);
     } catch (error) {
       console.error("Error al eliminar el producto:", error);
       res.status(500).json({ error: "Error al eliminar el producto" });
