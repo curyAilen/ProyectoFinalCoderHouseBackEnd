@@ -8,7 +8,10 @@ const UserModel = mongoose.model('users', new mongoose.Schema({
 },
   age: Number,
   password: String,
-  rol: String,
+  rol: {
+    type: String,
+    default: 'user'
+  },
   cart: { type: mongoose.Schema.Types.ObjectId, ref: 'cart' }
 
 }))

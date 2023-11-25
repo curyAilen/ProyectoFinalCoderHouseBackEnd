@@ -1,10 +1,11 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
-import {__dirname, setUserSession} from './utils.js';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
+import {__dirname, setUserSession} from './utils.js';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
 
@@ -17,54 +18,58 @@ import routerViews from './routes/viewsRoutes.js';
 import routerProducts from './routes/productsRoutes.js';
 import MessageModel from './dao/models/messege.model.js';
 
+import http from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 
 const app = express();
 const mongoUrl = 'mongodb+srv://ailencury:afrgafrg@dosagujas.qa302tu.mongodb.net/?retryWrites=true&w=majority'
 const mongoDBName = 'dosAgujas'
 
-import http from 'http';
-import { Server as SocketIOServer } from 'socket.io';
+// Config Express
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
-app.engine('handlebars', handlebars.engine());
-app.set('view engine', 'handlebars');
-
-
+// Views
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/partials/'))
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-
-app.use(methodOverride('_method'))
-
+// Session
 app.use(session({
   store: MongoStore.create({
-      mongoUrl,
-      dbName: mongoDBName,
-      ttl: 100
+    mongoUrl,
+    dbName: mongoDBName,
+    ttl: 100
   }),
   secret: 'secret',
   resave: true,
   saveUninitialized: true
 }))
+app.use(cookieParser())
 
+// Handlebars
+app.engine('handlebars', handlebars.engine());
+app.set('view engine', 'handlebars');
+
+// Passport
 app.use(setUserSession)
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
-app.use('/jwt', routerMain)
 
+// Use Rutes
+app.use('/jwt', routerMain)
 app.use('/', routerMain);
 app.use('/api/cart', cartRoutes);
 app.use('/api/products', routerProducts);
 app.use('/api/user', routerUser);
 app.use('/api', routerViews);
 
-
+// Connect server
 mongoose.connect(mongoUrl, { dbName: mongoDBName })
   .then(() => {
-    console.log('DB connected! 😎');
+    console.log('DB connected!');
 
 
     const server = http.createServer(app);
@@ -105,5 +110,5 @@ mongoose.connect(mongoUrl, { dbName: mongoDBName })
     });
   })
   .catch(error => {
-    console.error('Error connecting to the DB 🚑', error);
+    console.error('Error connecting to the DB', error);
   });

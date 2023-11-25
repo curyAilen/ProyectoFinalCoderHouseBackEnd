@@ -19,12 +19,16 @@ export const setUserSession = (req, res, next) => {
   return hashedPassword;
 };
 
-//JSONWEBTOKEN
-const PRIVATE_KEY = 'CoderHoasd12 as21nj'
+// JWT
 export const generateToken = user => {
-    const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '24h' })
-    return token
+  return jwt.sign( { user }, 'secretForJWT', {expiresIn: '24h'})
 }
+//JSONWEBTOKEN
+// const PRIVATE_KEY = 'CoderHoasd12 as21nj'
+// export const generateToken = user => {
+//     const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '24h' })
+//     return token
+// }
 export const authToken = (req, res, next) => {
     const token = req.headers.auth
     if(!token) return res.status(401).send({error: 'No auth'})
