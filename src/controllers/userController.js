@@ -74,50 +74,9 @@ const userController = {
       return res.status(500).json({ message: 'Error en el servidor' + error });
     }
   },
-  loginToken: (req, res) => {
-    passport.authenticate('login', { failureRedirect: '/error' }),
-      (req, res) => {
-        if (!req.user) {
-          console.log('No logueo')
-          return res.status(400).send('Invalid credentials')
-        }
-        res.cookie('cookieJWT', req.user.token).redirect('/api/user/dashboard')
-      }
-    /*
-    const { email, password} = req.body
-        const user = users.find(u => u.email === email && u.password === password)
-     if(!user) return res.status(400).send({status: 'error', error: 'invalid credenntial'})
-        const access_token = generateToken(user)
-        //res.redirect('/', {access_token})
-        res.send({status: 'success', access_token})
-     */
-  },
-  registerToken: (req, res) => {
-    passport.authenticate('register', { failureRedirect: '/error' }),
-    (req, res) => {
-        res.redirect('/api/user/login')
-    }
-    /*
-    const user = req.body
-    if (users.find(u => u.email === user.email)) {
-      return res.status(400).send({ status: 'error', error: 'User already exits' })
-    }
-    users.push(user)
-    const access_token = generateToken(user)
-    // res.redirect('/api/user/login', {access_token})
-    res.send({ status: 'success', access_token })
-    */
-
-
-  },
+  
   dashboard: async (req, res) => {
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-        const { user } = req
-        console.log({ user })
-        res.render('dashboard', { user })
-    }
-    /* 
+ 
    try {
       if (!req.session.user) {
         return res.redirect('/api/user/login')
@@ -126,7 +85,7 @@ const userController = {
 
     } catch (error) {
       res.status(500).json({ error: 'Error al ingresar al dashboard' });
-    }*/
+    }
   },
   logout: (req, res) => {
     req.session.destroy(err => {

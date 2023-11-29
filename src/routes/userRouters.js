@@ -7,10 +7,9 @@ const router = Router()
 
 
 router.get('/register', userController.getRegister)
-// router.post('/login', userController.login)
-// router.post('/register', userController.register)
-router.post('/login', userController.loginToken)
-router.post('/register', userController.registerToken)
+ router.post('/login', userController.login)
+ router.post('/register', userController.register)
+
 
 router.get('/login-github', passport.authenticate('github', {scope: ['user:email']}),
     async (req, res) => {}
